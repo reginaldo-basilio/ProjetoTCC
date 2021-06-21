@@ -6,4 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".Activity.MainSerachActivity">
 
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_margin="16dp"
+        android:layout_width="409dp"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="157dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
