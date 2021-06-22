@@ -70,14 +70,14 @@ public class LoginActivity extends AppCompatActivity {
         txtRecoveryPassword.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                //abrirDialog();
+                //openDialog();
             }
         });
 
         txtRegister.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                //abrirCadastro();
+                abrirCadastro();
             }
         });
 
@@ -92,7 +92,7 @@ public class LoginActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d("TAG", "signInWithEmail:success");
                             Toast.makeText(LoginActivity.this, "Login realizado com sucesso!", Toast.LENGTH_LONG).show();
-                            //abrirMainActivity();
+                            openMyAdsActivity();
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w("TAG", "signInWithEmail:failure", task.getException());
@@ -118,17 +118,17 @@ public class LoginActivity extends AppCompatActivity {
         currentUser = mAuth.getCurrentUser();
         if(currentUser != null){
             //reload();
-            abrirMainActivity();
+            openMyAdsActivity();
         }
     }
 
-    private void abrirMainActivity(){
-        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+    private void openMyAdsActivity(){
+        Intent intent = new Intent(LoginActivity.this, MyAdsActivity.class);
         startActivity(intent);
         finish();
     }
 /*
-    private void abrirDialog(){
+    private void openDialog(){
         dialog = new Dialog(LoginActivity.this);
         dialog.setContentView(R.layout.alert_recovery_password);
         btnCancelAlert = (BootstrapButton) dialog.findViewById(R.id.btnCancelAlert);

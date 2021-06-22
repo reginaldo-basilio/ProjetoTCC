@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.RegisterActivity">
+    tools:context=".Activity.MyAdsActivity">
 
     <TextView
-        android:id="@+id/txtCadastro"
+        android:id="@+id/txtADS"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Tela de cadastro!"
+        android:text="Minha tela de anuncios!"
         android:textColor="#006400"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
