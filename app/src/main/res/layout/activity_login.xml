@@ -36,31 +36,22 @@
         app:roundedCorners="true"
         tools:ignore="MissingConstraints" />
 
-    <TextView
-        android:id="@+id/txtRegister"
-        android:layout_width="wrap_content"
+    <com.beardedhen.androidbootstrap.BootstrapEditText
+        android:id="@+id/edtPassword"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Não tem conta? Cadastre aqui!"
-        android:textColor="#006400"
-        android:textSize="20sp"
+        android:layout_margin="16dp"
+        android:ems="10"
+        android:hint="Senha"
+        android:inputType="textPassword"
+        app:bootstrapBrand="info"
+        app:bootstrapSize="xl"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.768" />
-
-    <TextView
-        android:id="@+id/txtRecoveryPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Esqueci minha senha"
-        android:textColor="#006400"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.661" />
+        app:layout_constraintVertical_bias="0.459"
+        app:roundedCorners="true" />
 
     <com.beardedhen.androidbootstrap.BootstrapButton
         android:id="@+id/btnLogin"
@@ -79,22 +70,31 @@
         app:roundedCorners="true"
         app:showOutline="false" />
 
-    <com.beardedhen.androidbootstrap.BootstrapEditText
-        android:id="@+id/edtPassword"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/txtRecoveryPassword"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:ems="10"
-        android:hint="Senha"
-        android:inputType="textPassword"
-        app:bootstrapBrand="info"
-        app:bootstrapSize="xl"
+        android:text="Esqueci minha senha"
+        android:textColor="#006400"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.661" />
+
+    <TextView
+        android:id="@+id/txtRegister"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Não tem conta? Cadastre aqui!"
+        android:textColor="#006400"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.459"
-        app:roundedCorners="true" />
+        app:layout_constraintVertical_bias="0.768" />
 
 
 
