@@ -17,7 +17,6 @@ import android.widget.Toast;
 
 import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.beardedhen.androidbootstrap.BootstrapEditText;
-import com.example.apptcc.MainActivity;
 import com.example.apptcc.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -77,7 +76,7 @@ public class LoginActivity extends AppCompatActivity {
         txtRegister.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                abrirCadastro();
+                operRegistro();
             }
         });
 
@@ -92,7 +91,7 @@ public class LoginActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d("TAG", "signInWithEmail:success");
                             Toast.makeText(LoginActivity.this, "Login realizado com sucesso!", Toast.LENGTH_LONG).show();
-                            openMyAdsActivity();
+                            openMainSerachActivity();
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w("TAG", "signInWithEmail:failure", task.getException());
@@ -103,7 +102,7 @@ public class LoginActivity extends AppCompatActivity {
                 });
     }
 
-    private void abrirCadastro(){
+    private void operRegistro(){
         Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
         startActivity(intent);
         finish();
@@ -118,12 +117,12 @@ public class LoginActivity extends AppCompatActivity {
         currentUser = mAuth.getCurrentUser();
         if(currentUser != null){
             //reload();
-            openMyAdsActivity();
+            openMainSerachActivity();
         }
     }
 
-    private void openMyAdsActivity(){
-        Intent intent = new Intent(LoginActivity.this, MyAdsActivity.class);
+    private void openMainSerachActivity(){
+        Intent intent = new Intent(LoginActivity.this, MainSerachActivity.class);
         startActivity(intent);
         finish();
     }

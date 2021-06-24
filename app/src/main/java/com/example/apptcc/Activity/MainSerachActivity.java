@@ -3,16 +3,22 @@ package com.example.apptcc.Activity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
 
+import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.example.apptcc.R;
 
 public class MainSerachActivity extends AppCompatActivity {
 
     private Spinner spState, spCity, spCategory, spSubCategory;
+    private BootstrapButton btnResearch, btnAddAds;
+    private TextView txtRegisterOrLogin;
 
     private String[] stateListSpinner = new String []{"Selecione um Estado", "Acre", "Alagoas", "Amapá", "Amazonas", "Bahia", "Ceará", "Distrito Federal",
             "Espírito Santo", "Goiás", "Maranhão", "Mato Grosso", "Mato Grosso do Sul", "Minas Gerais", "Pará",
@@ -34,6 +40,30 @@ public class MainSerachActivity extends AppCompatActivity {
         spCity = (Spinner) findViewById(R.id.spCity);
         spCategory = (Spinner) findViewById(R.id.spCategory);
         spSubCategory = (Spinner) findViewById(R.id.spSubCategory);
+        btnResearch = (BootstrapButton) findViewById(R.id.btnResearch);
+        btnAddAds = (BootstrapButton) findViewById(R.id.btnAddAds);
+        txtRegisterOrLogin = (TextView) findViewById(R.id.txtRegister);
+
+        btnResearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        btnAddAds.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        txtRegisterOrLogin.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                toEnter();
+            }
+        });
 
         fillStateSpinner();
 
@@ -54,8 +84,12 @@ public class MainSerachActivity extends AppCompatActivity {
 
         ArrayAdapter<String> subCategoryAdapter = new ArrayAdapter<String>(this, R.layout.spinner_layout_with_border, subCategoryListSpinner);
         spSubCategory.setAdapter(subCategoryAdapter);
+    }
 
-
+    private void toEnter(){
+        Intent intent = new Intent(MainSerachActivity.this, LoginActivity.class);
+        startActivity(intent);
+        finish();
     }
 
 }

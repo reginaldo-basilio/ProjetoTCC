@@ -1,8 +1,10 @@
-package com.example.apptcc;
+package com.example.apptcc.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.example.apptcc.R;
 
 public class MainActivity extends AppCompatActivity {
 
