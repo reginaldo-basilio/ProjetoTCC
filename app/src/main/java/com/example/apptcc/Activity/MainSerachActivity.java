@@ -17,12 +17,16 @@ import android.widget.Toast;
 import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.example.apptcc.R;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MainSerachActivity extends AppCompatActivity {
 
+    private FirebaseAuth mAuth;
+    private FirebaseUser currentUser;
+
     private Spinner spState, spCity, spCategory, spSubCategory;
     private BootstrapButton btnResearch, btnAddAds;
-    private TextView txtRegisterOrLogin;
+    private TextView txtQuestion, txtRegisterOrLogin, txtLogged;
 
     private String[] stateListSpinner = new String []{"Selecione um Estado", "Acre", "Alagoas", "Amapá", "Amazonas", "Bahia", "Ceará", "Distrito Federal",
             "Espírito Santo", "Goiás", "Maranhão", "Mato Grosso", "Mato Grosso do Sul", "Minas Gerais", "Pará",
@@ -47,6 +51,7 @@ public class MainSerachActivity extends AppCompatActivity {
         btnResearch = (BootstrapButton) findViewById(R.id.btnResearch);
         btnAddAds = (BootstrapButton) findViewById(R.id.btnAddAds);
         txtRegisterOrLogin = (TextView) findViewById(R.id.txtRegister);
+        txtQuestion = (TextView) findViewById(R.id.txtQuestion);
 
         btnResearch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,14 +78,24 @@ public class MainSerachActivity extends AppCompatActivity {
 
     }
 
-
+    @Override
+    protected void onStart() {
+        super.onStart();
+        currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        txtLogged = (TextView) findViewById(R.id.txtLogged);
+        if(currentUser != null){
+            txtLogged.setText("Logado como ...");
+            txtRegisterOrLogin.setVisibility(View.INVISIBLE);
+            txtQuestion.setVisibility(View.INVISIBLE);
+        }else{
+            btnAddAds.setVisibility(View.INVISIBLE);
+        }
+    }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-
         getMenuInflater().inflate(R.menu.menu_tres_pontinhos, menu);
-
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -91,7 +106,6 @@ public class MainSerachActivity extends AppCompatActivity {
             disconnectUser();
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -106,9 +120,6 @@ public class MainSerachActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
-
-
-
 
     @SuppressLint("WrongConstant")
     private void fillStateSpinner(){

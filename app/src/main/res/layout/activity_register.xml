@@ -19,7 +19,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/txtRegister"
+                android:id="@+id/txtMessage"
                 android:layout_width="match_parent"
                 android:gravity="center"
                 android:layout_height="wrap_content"

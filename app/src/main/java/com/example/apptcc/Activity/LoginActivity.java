@@ -44,7 +44,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private BootstrapEditText edtEmail, edtPassword;
     private BootstrapButton btnLogin;
-    private TextView txtRecoveryPassword, txtRegister;
+    private TextView txtRecoveryPassword, txtRegister, txtLogged;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +76,7 @@ public class LoginActivity extends AppCompatActivity {
         txtRegister.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                operRegistro();
+                openRegistro();
             }
         });
 
@@ -102,7 +102,7 @@ public class LoginActivity extends AppCompatActivity {
                 });
     }
 
-    private void operRegistro(){
+    private void openRegistro(){
         Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
         startActivity(intent);
         finish();
