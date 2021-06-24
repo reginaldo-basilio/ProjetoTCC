@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">AppTCC</string>
+    <string name="action_disconnect">Desconectar</string>
+    <string name="action_Profile">Perfil</string>
 </resources>

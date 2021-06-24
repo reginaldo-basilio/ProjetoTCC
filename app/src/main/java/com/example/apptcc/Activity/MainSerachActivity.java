@@ -6,13 +6,17 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.example.apptcc.R;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class MainSerachActivity extends AppCompatActivity {
 
@@ -68,6 +72,43 @@ public class MainSerachActivity extends AppCompatActivity {
         fillStateSpinner();
 
     }
+
+
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        getMenuInflater().inflate(R.menu.menu_tres_pontinhos, menu);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.itemDisconnect) {
+            disconnectUser();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void disconnectUser() {
+        FirebaseAuth.getInstance().signOut();
+        openMainSerachActivity();
+        Toast.makeText(MainSerachActivity.this, "Usuário Desconectado!", Toast.LENGTH_SHORT).show();
+    }
+
+    private void openMainSerachActivity() {
+        Intent intent = new Intent(MainSerachActivity.this, MainSerachActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+
+
 
     @SuppressLint("WrongConstant")
     private void fillStateSpinner(){
