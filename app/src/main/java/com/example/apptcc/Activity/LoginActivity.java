@@ -76,7 +76,7 @@ public class LoginActivity extends AppCompatActivity {
         txtRegister.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                openRegistro();
+                openRegisterActivity();
             }
         });
 
@@ -102,7 +102,7 @@ public class LoginActivity extends AppCompatActivity {
                 });
     }
 
-    private void openRegistro(){
+    private void openRegisterActivity(){
         Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
         startActivity(intent);
         finish();
@@ -113,10 +113,8 @@ public class LoginActivity extends AppCompatActivity {
         super.onStart();
         verificarPermissoes();
 
-        // Check if user is signed in (non-null) and update UI accordingly.
         currentUser = mAuth.getCurrentUser();
         if(currentUser != null){
-            //reload();
             openMainSerachActivity();
         }
     }

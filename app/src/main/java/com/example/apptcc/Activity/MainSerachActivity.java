@@ -26,7 +26,7 @@ public class MainSerachActivity extends AppCompatActivity {
 
     private Spinner spState, spCity, spCategory, spSubCategory;
     private BootstrapButton btnResearch, btnAddAds;
-    private TextView txtQuestion, txtRegisterOrLogin, txtLogged;
+    private TextView txtQuestion, txtRegisterOrLogin;
 
     private String[] stateListSpinner = new String []{"Selecione um Estado", "Acre", "Alagoas", "Amapá", "Amazonas", "Bahia", "Ceará", "Distrito Federal",
             "Espírito Santo", "Goiás", "Maranhão", "Mato Grosso", "Mato Grosso do Sul", "Minas Gerais", "Pará",
@@ -82,20 +82,19 @@ public class MainSerachActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        txtLogged = (TextView) findViewById(R.id.txtLogged);
         if(currentUser != null){
-            txtLogged.setText("Logado como ...");
-            txtRegisterOrLogin.setVisibility(View.INVISIBLE);
             txtQuestion.setVisibility(View.INVISIBLE);
+            txtRegisterOrLogin.setVisibility(View.INVISIBLE);
         }else{
             btnAddAds.setVisibility(View.INVISIBLE);
         }
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_tres_pontinhos, menu);
+        if(currentUser != null){
+            getMenuInflater().inflate(R.menu.menu_tres_pontinhos, menu);
+        }
         return super.onCreateOptionsMenu(menu);
     }
 
