@@ -104,6 +104,9 @@ public class MainSerachActivity extends AppCompatActivity {
         if (id == R.id.itemDisconnect) {
             disconnectUser();
             return true;
+        }else if (id == R.id.itemProfile) {
+            openProfileActivity();
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -118,6 +121,11 @@ public class MainSerachActivity extends AppCompatActivity {
         Intent intent = new Intent(MainSerachActivity.this, MainSerachActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    private void openProfileActivity() {
+        Intent intent = new Intent(MainSerachActivity.this, ProfileActivity.class);
+        startActivity(intent);
     }
 
     @SuppressLint("WrongConstant")

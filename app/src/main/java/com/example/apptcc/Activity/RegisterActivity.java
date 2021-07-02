@@ -65,7 +65,7 @@ public class RegisterActivity extends AppCompatActivity {
                     user.setContact(edtContact.getText().toString());
                     user.setFantasyName(edtFantasyName.getText().toString());
                     user.setState(edtState.getText().toString());
-                    user.setCity(edtState.getText().toString());
+                    user.setCity(edtCity.getText().toString());
                     user.setDistrict(edtDistrict.getText().toString());
                     user.setAdress(edtAdress.getText().toString());
                     user.setNumber(edtNumber.getText().toString());
