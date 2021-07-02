@@ -42,9 +42,9 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseUser currentUser;
     private Dialog dialog;
 
-    private BootstrapEditText edtEmail, edtPassword;
-    private BootstrapButton btnLogin;
-    private TextView txtRecoveryPassword, txtRegister, txtLogged;
+    private BootstrapEditText edtEmail, edtPassword, edtEmailAlert;
+    private BootstrapButton btnLogin, btnSendEmailAlert, btnCancelAlert;
+    private TextView txtRecoveryPassword, txtRegister;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +69,7 @@ public class LoginActivity extends AppCompatActivity {
         txtRecoveryPassword.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                //openDialog();
+                openDialog();
             }
         });
 
@@ -124,19 +124,18 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
-/*
+
     private void openDialog(){
         dialog = new Dialog(LoginActivity.this);
         dialog.setContentView(R.layout.alert_recovery_password);
         btnCancelAlert = (BootstrapButton) dialog.findViewById(R.id.btnCancelAlert);
-        btnSendEmail = (BootstrapButton) dialog.findViewById(R.id.btnSendEmail);
-        edtSendEmail = (BootstrapEditText) dialog.findViewById(R.id.edtSendEmail);
+        btnSendEmailAlert = (BootstrapButton) dialog.findViewById(R.id.btnSendEmailAlert);
+        edtEmailAlert = (BootstrapEditText) dialog.findViewById(R.id.edtEmailAlert);
 
-        btnSendEmail.setOnClickListener(new View.OnClickListener() {
+        btnSendEmailAlert.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                mAuth.sendPasswordResetEmail(edtSendEmail.getText().toString())
+                mAuth.sendPasswordResetEmail(edtEmailAlert.getText().toString())
                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
@@ -152,9 +151,16 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        btnCancelAlert.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
         dialog.show();
     }
-*/
+
     private void verificarPermissoes(){
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED &&

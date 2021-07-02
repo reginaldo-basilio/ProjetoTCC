@@ -98,6 +98,8 @@ public class RegisterActivity extends AppCompatActivity {
                             user.setUid(uid);
 
                             insertUserDatabase(user);
+                            Toast.makeText(RegisterActivity.this, "Usuário cadastrado com sucesso!.",
+                                    Toast.LENGTH_SHORT).show();
                             openMainSerachActivity();
 
                         } else {
