@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_margin="16dp"
+    android:gravity="center"
+    tools:context=".Activity.CreateAssessmentActivity">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Conte nos sua experiência"
+        android:textSize="20sp"
+        android:layout_marginBottom="10dp"
+        android:textStyle="bold" />
+
+    <com.beardedhen.androidbootstrap.BootstrapEditText
+        android:id="@+id/edtComment"
+        android:layout_width="match_parent"
+        android:layout_height="195dp"
+        android:layout_margin="16dp"
+        android:layout_marginBottom="10dp"
+        android:ems="10"
+        android:hint="Insira seu comentário"
+        android:inputType="textMultiLine"
+        app:bootstrapBrand="info"
+        app:bootstrapSize="xl"
+        app:roundedCorners="true"
+        tools:ignore="MissingConstraints" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="352dp"
+        android:layout_height="92dp"
+        android:layout_marginBottom="10dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/imgStarOff1"
+            android:layout_width="49dp"
+            android:layout_height="45dp"
+            android:layout_marginRight="10dp"
+            app:srcCompat="@android:drawable/btn_star_big_off" />
+
+        <ImageView
+            android:id="@+id/imgStarOff2"
+            android:layout_width="49dp"
+            android:layout_height="45dp"
+            android:layout_marginRight="10dp"
+            app:srcCompat="@android:drawable/btn_star_big_off" />
+
+        <ImageView
+            android:id="@+id/imgStarOff3"
+            android:layout_width="49dp"
+            android:layout_height="45dp"
+            android:layout_marginRight="10dp"
+            app:srcCompat="@android:drawable/btn_star_big_off" />
+
+        <ImageView
+            android:id="@+id/imgStarOff4"
+            android:layout_width="49dp"
+            android:layout_height="45dp"
+            android:layout_marginRight="10dp"
+            app:srcCompat="@android:drawable/btn_star_big_off" />
+
+        <ImageView
+            android:id="@+id/imgStarOff5"
+            android:layout_width="49dp"
+            android:layout_height="45dp"
+            android:layout_marginRight="10dp"
+            app:srcCompat="@android:drawable/btn_star_big_off" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="352dp"
+        android:layout_height="92dp"
+        android:gravity="center"
+        android:layout_marginBottom="10dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/imgStarOn1"
+            android:layout_width="49dp"
+            android:layout_height="45dp"
+            android:layout_marginRight="10dp"
+            app:srcCompat="@android:drawable/btn_star_big_on" />
+
+        <ImageView
+            android:id="@+id/imgStarOn2"
+            android:layout_width="49dp"
+            android:layout_height="45dp"
+            android:layout_marginRight="10dp"
+            app:srcCompat="@android:drawable/btn_star_big_on" />
+
+        <ImageView
+            android:id="@+id/imgStarOn3"
+            android:layout_width="49dp"
+            android:layout_height="45dp"
+            android:layout_marginRight="10dp"
+            app:srcCompat="@android:drawable/btn_star_big_on" />
+
+        <ImageView
+            android:id="@+id/imgStarOn4"
+            android:layout_width="49dp"
+            android:layout_height="45dp"
+            android:layout_marginRight="10dp"
+            app:srcCompat="@android:drawable/btn_star_big_on" />
+
+        <ImageView
+            android:id="@+id/imgStarOn5"
+            android:layout_width="49dp"
+            android:layout_height="45dp"
+            android:layout_marginRight="10dp"
+            app:srcCompat="@android:drawable/btn_star_big_on" />
+
+    </LinearLayout>
+
+    <com.beardedhen.androidbootstrap.BootstrapButton
+        android:id="@+id/btnAssessment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="35dp"
+        android:text="Confirmar"
+        app:bootstrapBrand="success"
+        app:bootstrapSize="lg"
+        app:buttonMode="regular"
+        app:roundedCorners="true"
+        app:showOutline="false" />
+
+</LinearLayout>
