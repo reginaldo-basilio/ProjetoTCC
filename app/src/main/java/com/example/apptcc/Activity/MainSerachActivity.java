@@ -63,7 +63,7 @@ public class MainSerachActivity extends AppCompatActivity {
         btnAddAds.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                openMyAdsActivity();
             }
         });
 
@@ -119,6 +119,12 @@ public class MainSerachActivity extends AppCompatActivity {
 
     private void openMainSerachActivity() {
         Intent intent = new Intent(MainSerachActivity.this, MainSerachActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    private void openMyAdsActivity() {
+        Intent intent = new Intent(MainSerachActivity.this, MyAdsActivity.class);
         startActivity(intent);
         finish();
     }

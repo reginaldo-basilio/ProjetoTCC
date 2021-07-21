@@ -34,12 +34,12 @@ public class Ads {
         this.description = description;
     }
 
-    public String keyAds() {
+    public String getKeyAds() {
         return keyAds;
     }
 
-    public void setKeyDescription(String keyDescription) {
-        this.keyAds = keyDescription;
+    public void setKeyAds(String keyAds) {
+        this.keyAds = keyAds;
     }
 
     public String getUidAds() {
