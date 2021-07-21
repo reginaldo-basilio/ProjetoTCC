@@ -7,13 +7,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:layout_margin="16dp"
-    android:gravity="center"
     tools:context=".Activity.MyAdsActivity">
 
     <TextView
         android:id="@+id/txtADS"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:text="Minha tela de anuncios!"
         android:textColor="#006400"
         android:textSize="20sp"
@@ -46,5 +46,13 @@
         app:roundedCorners="true"
         android:layout_marginTop="5dp"
         app:showOutline="false" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewAdsUser"
+        android:scrollbars="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+
 
 </LinearLayout>

@@ -83,12 +83,14 @@ public class CreateAdsActivity extends AppCompatActivity {
                 ads.setDescription(edtDescription.getText().toString());
                 String title = edtTitle.getText().toString();
                 String description = edtDescription.getText().toString();
+
                 if(title == null || title.isEmpty() || description == null || description.isEmpty()){
                     Toast.makeText(CreateAdsActivity.this, "Título e descrição devem ser preenchidos!", Toast.LENGTH_SHORT).show();
                 }else{
 
                     userAuth = FirebaseAuth.getInstance().getCurrentUser();
                     String uid = userAuth.getUid();
+                    ads.setUidAds(uid);
 
                     storageRef = storage.getReference();
                     profileRef = storageRef.child("images/" + uid + ".jpg");
