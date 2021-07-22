@@ -85,9 +85,6 @@ public class CreateAdsActivity extends AppCompatActivity {
                 }else{
 
                     userAuth = FirebaseAuth.getInstance().getCurrentUser();
-                    String uid = userAuth.getUid();
-
-                    //ads.setUidAds(uid);
 
                     String fileName = UUID.randomUUID().toString();
                     storageRef = FirebaseStorage.getInstance().getReference("/images/" + fileName);
@@ -130,6 +127,7 @@ public class CreateAdsActivity extends AppCompatActivity {
         ads = new Ads();
         ads.setTitle(edtTitle.getText().toString());
         ads.setDescription(edtDescription.getText().toString());
+        ads.setUidAds(userAuth.getUid());
         ads.setUrl(url);
         myRef = database.getReference("ads");
         String key = myRef.child("ads").push().getKey();

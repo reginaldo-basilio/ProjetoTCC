@@ -54,9 +54,9 @@ public class MyAdsActivity extends AppCompatActivity {
                 //adsList.clear();
                 for(DataSnapshot adsSnapshot : snapshot.getChildren()){
                     ads = adsSnapshot.getValue((Ads.class));
-                    //if (ads.getUidAds().equals(uid)) {
+                    if (ads.getUidAds().equals(uid)) {
                         adsList.add(ads);
-                    //}
+                    }
                 }
 
                 mUserAdsAdapter = new UserAdsAdapter(adsList, MyAdsActivity.this);
