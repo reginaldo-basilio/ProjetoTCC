@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.beardedhen.androidbootstrap.BootstrapEditText;
+import com.example.apptcc.Adapter.UserAdsAdapter;
 import com.example.apptcc.Entities.Ads;
 import com.example.apptcc.Entities.User;
 import com.example.apptcc.R;
@@ -49,7 +50,6 @@ public class CreateAdsActivity extends AppCompatActivity {
     private FirebaseUser userAuth;
     private DatabaseReference myRef;
     private StorageReference storageRef;
-    private StorageReference profileRef;
     private FirebaseDatabase database;
     private Ads ads;
 
@@ -78,51 +78,41 @@ public class CreateAdsActivity extends AppCompatActivity {
         btnInsert.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ads = new Ads();
-                ads.setTitle(edtTitle.getText().toString());
-                ads.setDescription(edtDescription.getText().toString());
-                String title = edtTitle.getText().toString();
-                String description = edtDescription.getText().toString();
 
-                if(title == null || title.isEmpty() || description == null || description.isEmpty()){
+
+                if(edtTitle.getText().toString() == null || edtTitle.getText().toString().isEmpty() || edtDescription.getText().toString() == null || edtDescription.getText().toString().isEmpty()){
                     Toast.makeText(CreateAdsActivity.this, "Título e descrição devem ser preenchidos!", Toast.LENGTH_SHORT).show();
                 }else{
 
                     userAuth = FirebaseAuth.getInstance().getCurrentUser();
                     String uid = userAuth.getUid();
-                    ads.setUidAds(uid);
 
-                    storageRef = storage.getReference();
-                    profileRef = storageRef.child("images/" + uid + ".jpg");
+                    //ads.setUidAds(uid);
 
-                    imgAds.setDrawingCacheEnabled(true);
-                    imgAds.buildDrawingCache();
-                    Bitmap bitmap = ((BitmapDrawable) imgAds.getDrawable()).getBitmap();
-                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-                    byte[] data = baos.toByteArray();
-                    UploadTask uploadTask = profileRef.putBytes(data);
+                    String fileName = UUID.randomUUID().toString();
+                    storageRef = FirebaseStorage.getInstance().getReference("/images/" + fileName);
+                    storageRef.putFile(mUri)
+                            .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                @Override
+                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                    storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                        @Override
+                                        public void onSuccess(Uri uri) {
+                                            String url = uri.toString();
+                                            createAds(url);
+                                        }
+                                    });
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull @NotNull Exception e) {
+                                    Toast.makeText(CreateAdsActivity.this, "Falha ao carregar imagem!", Toast.LENGTH_SHORT).show();
+                                }
+                            });
 
-                    uploadTask.addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception exception) {
-                            // Handle unsuccessful uploads
-                            Toast.makeText(CreateAdsActivity.this, "Falha ao Enviar Imagem!", Toast.LENGTH_SHORT).show();
-                        }
-                    }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
-                            // ...
 
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d("TAG", "createUserWithEmail:success");
-                            Toast.makeText(CreateAdsActivity.this, "Anúncio cadastrado!", Toast.LENGTH_LONG).show();
-
-                            insertAdsDatabase(ads);
-                            openMyAdsActivity();
-                        }
-                    });
+                    //openMyAdsActivity();
                 }
             }
         });
@@ -134,6 +124,32 @@ public class CreateAdsActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void createAds(String url){
+        ads = new Ads();
+        ads.setTitle(edtTitle.getText().toString());
+        ads.setDescription(edtDescription.getText().toString());
+        ads.setUrl(url);
+        myRef = database.getReference("ads");
+        String key = myRef.child("ads").push().getKey();
+        ads.setKeyAds(key);
+        myRef.child(key).setValue(ads);
+        openMyAdsActivity();
+        //insertAdsDatabase(ads);
+    }
+
+    private void insertAdsDatabase(Ads ads){
+        myRef = database.getReference("ads");
+        String key = myRef.child("ads").push().getKey();
+        ads.setKeyAds(key);
+        myRef.child(key).setValue(ads);
+    }
+
+    private void openMyAdsActivity() {
+        Intent intent = new Intent(CreateAdsActivity.this, MyAdsActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     @SuppressLint("MissingSuperCall")
@@ -156,19 +172,6 @@ public class CreateAdsActivity extends AppCompatActivity {
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType("image/*");
         startActivityForResult(intent, 0);
-    }
-
-    private void insertAdsDatabase(Ads ads){
-        myRef = database.getReference("ads");
-        String key = myRef.child("ads").push().getKey();
-        ads.setKeyAds(key);
-        myRef.child(key).setValue(ads);
-    }
-
-    private void openMyAdsActivity() {
-        Intent intent = new Intent(CreateAdsActivity.this, MyAdsActivity.class);
-        startActivity(intent);
-        finish();
     }
 
 }

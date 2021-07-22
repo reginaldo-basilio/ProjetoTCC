@@ -35,10 +35,7 @@ public class MyAdsActivity extends AppCompatActivity {
     private DatabaseReference databaseReference;
     private FirebaseUser userAuth;
 
-
     private BootstrapButton btnInsertAds, btnInsertAssessment;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,16 +51,17 @@ public class MyAdsActivity extends AppCompatActivity {
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                adsList.clear();
+                //adsList.clear();
                 for(DataSnapshot adsSnapshot : snapshot.getChildren()){
                     ads = adsSnapshot.getValue((Ads.class));
-                    if (ads.getUidAds().equals(uid)) {
+                    //if (ads.getUidAds().equals(uid)) {
                         adsList.add(ads);
-                    }
+                    //}
                 }
-                //mUserAdsAdapter.notifyDataSetChanged();
-                mUserAdsAdapter = new UserAdsAdapter(adsList);
+
+                mUserAdsAdapter = new UserAdsAdapter(adsList, MyAdsActivity.this);
                 mRecyclerViewAdsUser.setAdapter(mUserAdsAdapter);
+
             }
 
             @Override

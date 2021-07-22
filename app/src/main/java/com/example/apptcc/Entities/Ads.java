@@ -6,16 +6,25 @@ public class Ads {
     private String description;
     private String keyAds;
     private String uidAds;
+    private String url;
 
     public Ads(){
 
     }
 
-    public Ads(String title, String description, String keyAds, String uidAds) {
+    public Ads(String title, String description, String keyAds, String url) {
+        this.title = title;
+        this.description = description;
+        this.keyAds = keyAds;
+        this.url = url;
+    }
+
+    public Ads(String title, String description, String keyAds, String uidAds, String url) {
         this.title = title;
         this.description = description;
         this.keyAds = keyAds;
         this.uidAds = uidAds;
+        this.url = url;
     }
 
     public String getTitle() {
@@ -48,5 +57,13 @@ public class Ads {
 
     public void setUidAds(String uidAds) {
         this.uidAds = uidAds;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

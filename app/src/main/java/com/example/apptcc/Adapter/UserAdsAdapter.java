@@ -8,8 +8,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.example.apptcc.Activity.MyAdsActivity;
 import com.example.apptcc.Entities.Ads;
 import com.example.apptcc.R;
+import com.google.firebase.database.ValueEventListener;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -23,12 +26,18 @@ public class UserAdsAdapter extends RecyclerView.Adapter<UserAdsAdapter.ViewHold
     private List<Ads> mUserAdsList;
     private Context context;
 
-    /*public UserAdsAdapter(List<Ads> mUserAdsList, Context context) {
+    public UserAdsAdapter(){
+
+    }
+    public UserAdsAdapter(List<Ads> mUserAdsList, Context context) {
         this.mUserAdsList = mUserAdsList;
         this.context = context;
-    }*/
+    }
     public UserAdsAdapter(List<Ads> mUserAdsList) {
         this.mUserAdsList = mUserAdsList;
+    }
+
+    public UserAdsAdapter(List<Ads> adsList, ValueEventListener valueEventListener) {
     }
 
     @NonNull
@@ -45,8 +54,8 @@ public class UserAdsAdapter extends RecyclerView.Adapter<UserAdsAdapter.ViewHold
 
         Ads item = mUserAdsList.get(position);
 
-        //holder.imgAdsUser.setImageDrawable();
         holder.txtTitleAdsUser.setText(item.getTitle());
+        Glide.with(context).load(item.getUrl()).into(holder.imgAdsUser);
 
         holder.linearLayoutAdsUser.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
