@@ -12,7 +12,9 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.beardedhen.androidbootstrap.BootstrapButton;
@@ -42,6 +44,7 @@ public class CreateAdsActivity extends AppCompatActivity {
     private ImageView imgAds;
     private BootstrapEditText edtTitle, edtDescription;
     private BootstrapButton btnInsert, btnCancel;
+    private Spinner spAdsCategory;
     private Uri mUri;
 
     private FirebaseStorage storage;
@@ -52,6 +55,8 @@ public class CreateAdsActivity extends AppCompatActivity {
     private StorageReference storageRef;
     private FirebaseDatabase database;
     private Ads ads;
+
+    private String[] adsCategoryListSpinner = new String []{"Selecione uma Categoria", "Animais", "Eletrônicos", "Esportes", "Veículos", "Construção"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +70,7 @@ public class CreateAdsActivity extends AppCompatActivity {
         imgAds = (ImageView) findViewById(R.id.imgAds);
         edtTitle = (BootstrapEditText) findViewById(R.id.edtTitle);
         edtDescription = (BootstrapEditText) findViewById(R.id.edtDescription);
+        spAdsCategory = (Spinner) findViewById(R.id.spAdsCategory);
         btnInsert = (BootstrapButton) findViewById(R.id.btnInsert);
         btnCancel = (BootstrapButton) findViewById(R.id.btnCancel);
 
@@ -121,6 +127,8 @@ public class CreateAdsActivity extends AppCompatActivity {
             }
         });
 
+        fillSpinner();
+
     }
 
     private void createAds(String url){
@@ -129,6 +137,7 @@ public class CreateAdsActivity extends AppCompatActivity {
         ads.setDescription(edtDescription.getText().toString());
         ads.setUidAds(userAuth.getUid());
         ads.setUrl(url);
+        ads.setCategory(spAdsCategory.getSelectedItem().toString());
         myRef = database.getReference("ads");
         String key = myRef.child("ads").push().getKey();
         ads.setKeyAds(key);
@@ -170,6 +179,15 @@ public class CreateAdsActivity extends AppCompatActivity {
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType("image/*");
         startActivityForResult(intent, 0);
+    }
+
+    @SuppressLint("WrongConstant")
+    private void fillSpinner(){
+        //spState.setAdapter(new ArrayAdapter<String>(getApplicationContext(),R.layout.support_simple_spinner_dropdown_item, stateListSpinner));
+
+        ArrayAdapter<String> adsCategoryAdapter = new ArrayAdapter<String>(this, R.layout.spinner_layout_with_border, adsCategoryListSpinner);
+        spAdsCategory.setAdapter(adsCategoryAdapter);
+
     }
 
 }

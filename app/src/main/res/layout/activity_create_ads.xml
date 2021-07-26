@@ -49,6 +49,13 @@
         android:layout_marginTop="5dp"
         app:roundedCorners="true" />
 
+    <Spinner
+        android:id="@+id/spAdsCategory"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        tools:ignore="MissingConstraints" />
+
     <com.beardedhen.androidbootstrap.BootstrapButton
         android:id="@+id/btnInsert"
         android:layout_width="match_parent"

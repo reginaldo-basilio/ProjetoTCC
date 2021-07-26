@@ -7,24 +7,27 @@ public class Ads {
     private String keyAds;
     private String uidAds;
     private String url;
+    private String category;
 
     public Ads(){
 
     }
 
-    public Ads(String title, String description, String keyAds, String url) {
+    public Ads(String title, String description, String keyAds, String url, String category) {
         this.title = title;
         this.description = description;
         this.keyAds = keyAds;
         this.url = url;
+        this.category = category;
     }
 
-    public Ads(String title, String description, String keyAds, String uidAds, String url) {
+    public Ads(String title, String description, String keyAds, String uidAds, String url, String category) {
         this.title = title;
         this.description = description;
         this.keyAds = keyAds;
         this.uidAds = uidAds;
         this.url = url;
+        this.category = category;
     }
 
     public String getTitle() {
@@ -65,5 +68,13 @@ public class Ads {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 }

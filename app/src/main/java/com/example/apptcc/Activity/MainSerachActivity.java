@@ -74,7 +74,7 @@ public class MainSerachActivity extends AppCompatActivity {
             }
         });
 
-        fillStateSpinner();
+        fillSpinners();
 
     }
 
@@ -135,7 +135,7 @@ public class MainSerachActivity extends AppCompatActivity {
     }
 
     @SuppressLint("WrongConstant")
-    private void fillStateSpinner(){
+    private void fillSpinners(){
         //spState.setAdapter(new ArrayAdapter<String>(getApplicationContext(),R.layout.support_simple_spinner_dropdown_item, stateListSpinner));
 
         ArrayAdapter<String> stateAdapter = new ArrayAdapter<String>(this, R.layout.spinner_layout_with_border, stateListSpinner);
