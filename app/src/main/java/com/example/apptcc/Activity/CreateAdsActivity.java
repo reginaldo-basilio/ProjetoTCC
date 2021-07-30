@@ -27,8 +27,12 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserInfo;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -51,7 +55,7 @@ public class CreateAdsActivity extends AppCompatActivity {
     private User user;
     private FirebaseAuth mAuth;
     private FirebaseUser userAuth;
-    private DatabaseReference myRef;
+    private DatabaseReference myRef, databaseReference;
     private StorageReference storageRef;
     private FirebaseDatabase database;
     private Ads ads;
@@ -89,7 +93,6 @@ public class CreateAdsActivity extends AppCompatActivity {
                 if(edtTitle.getText().toString() == null || edtTitle.getText().toString().isEmpty() || edtDescription.getText().toString() == null || edtDescription.getText().toString().isEmpty()){
                     Toast.makeText(CreateAdsActivity.this, "Título e descrição devem ser preenchidos!", Toast.LENGTH_SHORT).show();
                 }else{
-
                     userAuth = FirebaseAuth.getInstance().getCurrentUser();
 
                     String fileName = UUID.randomUUID().toString();
@@ -102,7 +105,26 @@ public class CreateAdsActivity extends AppCompatActivity {
                                         @Override
                                         public void onSuccess(Uri uri) {
                                             String url = uri.toString();
-                                            createAds(url);
+                                            userAuth = FirebaseAuth.getInstance().getCurrentUser();
+                                            String uid = userAuth.getUid();
+                                            databaseReference = FirebaseDatabase.getInstance().getReference("users");
+                                            databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                                                @Override
+                                                public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                                                    //adsList.clear();
+                                                    for(DataSnapshot adsSnapshot : snapshot.getChildren()){
+                                                        user = adsSnapshot.getValue((User.class));
+                                                        if (user.getUid().equals(uid)) {
+                                                            createAds(url, user);
+                                                        }
+                                                    }
+                                                }
+                                                @Override
+                                                public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+                                                }
+                                            });
+
                                         }
                                     });
                                 }
@@ -115,7 +137,6 @@ public class CreateAdsActivity extends AppCompatActivity {
                             });
 
 
-                    //openMyAdsActivity();
                 }
             }
         });
@@ -131,13 +152,16 @@ public class CreateAdsActivity extends AppCompatActivity {
 
     }
 
-    private void createAds(String url){
+    private void createAds(String url, User user1){
         ads = new Ads();
         ads.setTitle(edtTitle.getText().toString());
         ads.setDescription(edtDescription.getText().toString());
         ads.setUidAds(userAuth.getUid());
         ads.setUrl(url);
         ads.setCategory(spAdsCategory.getSelectedItem().toString());
+        ads.setState(user1.getState());
+        ads.setCity(user1.getCity());
+
         myRef = database.getReference("ads");
         String key = myRef.child("ads").push().getKey();
         ads.setKeyAds(key);
