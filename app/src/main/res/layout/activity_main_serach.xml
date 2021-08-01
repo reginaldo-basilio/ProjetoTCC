@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_margin="16dp"
+    android:gravity="center"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Activity.MainSerachActivity">
@@ -14,60 +17,62 @@
         android:text="Escolha os filtros e Achou!"
         android:textColor="#006400"
         android:textStyle="bold"
-        android:textSize="22sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.088" />
+        android:layout_marginTop="-50dp"
+        android:layout_marginBottom="15dp"
+        android:textSize="22sp"/>
+
+    <TextView
+        android:id="@+id/txtSelectState"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Selecione um Estado"
+        android:layout_gravity="left"
+        android:textColor="#006400"
+        android:textSize="20sp" />
 
     <Spinner
         android:id="@+id/spState"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.158"
+        android:layout_marginBottom="15dp"
         tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/txtSelectCity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Selecione uma cidade"
+        android:layout_gravity="left"
+        android:textColor="#006400"
+        android:textSize="20sp" />
 
     <Spinner
         android:id="@+id/spCity"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.277"
+        android:layout_marginBottom="15dp"
         tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/txtSelectCategory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:text="Selecione uma categoria"
+        android:textColor="#006400"
+        android:textSize="20sp" />
 
     <Spinner
         android:id="@+id/spCategory"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.398"
+        android:layout_marginBottom="15dp"
         tools:ignore="MissingConstraints" />
 
-    <Spinner
-        android:id="@+id/spSubCategory"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.52"
-        tools:ignore="MissingConstraints" />
+
 
     <com.beardedhen.androidbootstrap.BootstrapButton
         android:id="@+id/btnResearch"
@@ -134,7 +139,7 @@
         app:layout_constraintVertical_bias="0.767" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
 
 
 

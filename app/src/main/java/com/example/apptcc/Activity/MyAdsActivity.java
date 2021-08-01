@@ -53,7 +53,7 @@ public class MyAdsActivity extends AppCompatActivity {
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
                 //adsList.clear();
                 for(DataSnapshot adsSnapshot : snapshot.getChildren()){
-                    ads = adsSnapshot.getValue((Ads.class));
+                    ads = adsSnapshot.getValue(Ads.class);
                     if (ads.getUidAds().equals(uid)) {
                         adsList.add(ads);
                     }
