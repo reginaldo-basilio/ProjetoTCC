@@ -45,18 +45,7 @@ public class MainSerachActivity extends AppCompatActivity {
     private BootstrapButton btnResearch, btnAddAds;
     private TextView txtQuestion, txtRegisterOrLogin;
 
-    private List<String> stateList, cityList;
-
-    private String[] stateListSpinner = new String []{"Selecione um Estado", "Acre", "Alagoas", "Amapá", "Amazonas", "Bahia", "Ceará", "Distrito Federal",
-            "Espírito Santo", "Goiás", "Maranhão", "Mato Grosso", "Mato Grosso do Sul", "Minas Gerais", "Pará",
-            "Paraíba", "Paraná", "Pernambuco", "Piauí", "Rio de Janeiro", "Rio Grande do Norte", "Rio Grande do Sul",
-            "Rondônia", "Roraima", "Santa Catarina", "São Paulo", "Sergipe", "Tocantins"};
-
-    private String[] cityListSpinner = new String []{"Selecione uma Cidade"};
-
-    private String[] categoryListSpinner = new String []{"Selecione uma Categoria"};
-
-    private String[] subCategoryListSpinner = new String []{"Selecione uma Subcategoria"};
+    private List<String> stateList, cityList, categoryList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +63,7 @@ public class MainSerachActivity extends AppCompatActivity {
         btnResearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                openSearchResultActivity();
             }
         });
 
@@ -92,7 +81,6 @@ public class MainSerachActivity extends AppCompatActivity {
             }
         });
 
-        //fillSpinners();
         loadStates();
 
         spState.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -105,6 +93,8 @@ public class MainSerachActivity extends AppCompatActivity {
             public void onNothingSelected(AdapterView arg0) {
             }
         });
+
+        loadCategories();
 
     }
 
@@ -164,23 +154,15 @@ public class MainSerachActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    @SuppressLint("WrongConstant")
-    private void fillSpinners(){
-        //ArrayAdapter<String> stateAdapter = new ArrayAdapter<String>(this, R.layout.spinner_layout_with_border, stateListSpinner);
-        //spState.setAdapter(stateAdapter);
-
-        ArrayAdapter<String> cityAdapter = new ArrayAdapter<String>(this, R.layout.spinner_layout_with_border, cityListSpinner);
-        spCity.setAdapter(cityAdapter);
-
-        ArrayAdapter<String> categoryAdapter = new ArrayAdapter<String>(this, R.layout.spinner_layout_with_border, categoryListSpinner);
-        spCategory.setAdapter(categoryAdapter);
-
+    private void openSearchResultActivity() {
+        Intent intent = new Intent(MainSerachActivity.this, SearchResultActivity.class);
+        startActivity(intent);
     }
 
     private void toEnter(){
         Intent intent = new Intent(MainSerachActivity.this, LoginActivity.class);
         startActivity(intent);
-        finish();
+        //finish();
     }
 
     private void loadStates(){
@@ -224,6 +206,28 @@ public class MainSerachActivity extends AppCompatActivity {
 
                 ArrayAdapter<String> cityAdapter = new ArrayAdapter<String>(MainSerachActivity.this, R.layout.spinner_layout_with_border, cityList);
                 spCity.setAdapter(cityAdapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    private void loadCategories(){
+        databaseReference = FirebaseDatabase.getInstance().getReference("categories");
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                categoryList = new ArrayList<String>();
+                for(DataSnapshot stateSnapshot : snapshot.getChildren()){
+                    String stateName = stateSnapshot.child("name").getValue(String.class);
+                    categoryList.add(stateName);
+                }
+
+                ArrayAdapter<String> categoryAdapter = new ArrayAdapter<String>(MainSerachActivity.this, R.layout.spinner_layout_with_border, categoryList);
+                spCategory.setAdapter(categoryAdapter);
             }
 
             @Override

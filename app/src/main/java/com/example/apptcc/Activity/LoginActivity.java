@@ -105,7 +105,7 @@ public class LoginActivity extends AppCompatActivity {
     private void openRegisterActivity(){
         Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
         startActivity(intent);
-        finish();
+        //finish();
     }
 
     @Override
