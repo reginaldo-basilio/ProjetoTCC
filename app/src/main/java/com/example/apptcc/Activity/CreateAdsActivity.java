@@ -41,6 +41,8 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 public class CreateAdsActivity extends AppCompatActivity {
@@ -49,6 +51,7 @@ public class CreateAdsActivity extends AppCompatActivity {
     private BootstrapEditText edtTitle, edtDescription;
     private BootstrapButton btnInsert, btnCancel;
     private Spinner spAdsCategory;
+    private List<String> categoryList;
     private Uri mUri;
 
     private FirebaseStorage storage;
@@ -59,8 +62,6 @@ public class CreateAdsActivity extends AppCompatActivity {
     private StorageReference storageRef;
     private FirebaseDatabase database;
     private Ads ads;
-
-    private String[] adsCategoryListSpinner = new String []{"Selecione uma Categoria", "Animais", "Eletrônicos", "Esportes", "Veículos", "Construção"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -148,7 +149,7 @@ public class CreateAdsActivity extends AppCompatActivity {
             }
         });
 
-        fillSpinner();
+        loadCategories();
 
     }
 
@@ -167,14 +168,6 @@ public class CreateAdsActivity extends AppCompatActivity {
         ads.setKeyAds(key);
         myRef.child(key).setValue(ads);
         openMyAdsActivity();
-        //insertAdsDatabase(ads);
-    }
-
-    private void insertAdsDatabase(Ads ads){
-        myRef = database.getReference("ads");
-        String key = myRef.child("ads").push().getKey();
-        ads.setKeyAds(key);
-        myRef.child(key).setValue(ads);
     }
 
     private void openMyAdsActivity() {
@@ -205,13 +198,26 @@ public class CreateAdsActivity extends AppCompatActivity {
         startActivityForResult(intent, 0);
     }
 
-    @SuppressLint("WrongConstant")
-    private void fillSpinner(){
-        //spState.setAdapter(new ArrayAdapter<String>(getApplicationContext(),R.layout.support_simple_spinner_dropdown_item, stateListSpinner));
+    private void loadCategories(){
+        databaseReference = FirebaseDatabase.getInstance().getReference("categories");
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                categoryList = new ArrayList<String>();
+                for(DataSnapshot stateSnapshot : snapshot.getChildren()){
+                    String stateName = stateSnapshot.child("name").getValue(String.class);
+                    categoryList.add(stateName);
+                }
 
-        ArrayAdapter<String> adsCategoryAdapter = new ArrayAdapter<String>(this, R.layout.spinner_layout_with_border, adsCategoryListSpinner);
-        spAdsCategory.setAdapter(adsCategoryAdapter);
+                ArrayAdapter<String> categoryAdapter = new ArrayAdapter<String>(CreateAdsActivity.this, R.layout.spinner_layout_with_border, categoryList);
+                spAdsCategory.setAdapter(categoryAdapter);
+            }
 
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+            }
+        });
     }
 
 }

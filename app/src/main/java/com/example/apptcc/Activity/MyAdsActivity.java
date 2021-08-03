@@ -92,7 +92,7 @@ public class MyAdsActivity extends AppCompatActivity {
     private void openCreateAdsActivity() {
         Intent intent = new Intent(MyAdsActivity.this, CreateAdsActivity.class);
         startActivity(intent);
-        finish();
+        //finish();
     }
 
     private void openCreateAssessmentActivity() {

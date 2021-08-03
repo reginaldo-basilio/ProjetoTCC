@@ -39,7 +39,7 @@ public class MainSerachActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
-    private DatabaseReference databaseReference, databaseReference1;
+    private DatabaseReference databaseReference;
 
     private Spinner spState, spCity, spCategory;
     private BootstrapButton btnResearch, btnAddAds;
@@ -146,7 +146,7 @@ public class MainSerachActivity extends AppCompatActivity {
     private void openMyAdsActivity() {
         Intent intent = new Intent(MainSerachActivity.this, MyAdsActivity.class);
         startActivity(intent);
-        finish();
+        //finish();
     }
 
     private void openProfileActivity() {
@@ -188,8 +188,8 @@ public class MainSerachActivity extends AppCompatActivity {
     }
 
     private void loadCities(String currentSelectedItem){
-        databaseReference1 = FirebaseDatabase.getInstance().getReference("cities");
-        databaseReference1.addListenerForSingleValueEvent(new ValueEventListener() {
+        databaseReference = FirebaseDatabase.getInstance().getReference("cities");
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
 
