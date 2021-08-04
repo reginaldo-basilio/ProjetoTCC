@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -27,6 +28,21 @@
                 android:textColor="#006400"
                 android:textSize="21sp"
                 android:textStyle="bold"/>
+
+            <ImageView
+                android:id="@+id/imgFrontImage"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/ic_baseline_add_a_photo_24" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Imagem da sua loja ou do seu trabalho"
+                android:layout_marginBottom="15dp"
+                android:textStyle="italic"/>
 
             <com.beardedhen.androidbootstrap.BootstrapEditText
                 android:id="@+id/edtName"
@@ -78,6 +94,14 @@
                 app:bootstrapSize="lg"
                 app:roundedCorners="true"
                 tools:ignore="MissingConstraints" />
+
+            <Spinner
+                android:id="@+id/spCategory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                tools:ignore="MissingConstraints" />
+
             <Spinner
                 android:id="@+id/spState"
                 android:layout_width="match_parent"

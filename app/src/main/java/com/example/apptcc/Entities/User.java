@@ -10,6 +10,7 @@ public class User {
     private String email;
     private String contact;
     private String fantasyName;
+    private String category;
     private String state;
     private String city;
     private String district;
@@ -18,13 +19,14 @@ public class User {
     private String keyUser;
     private String password;
     private String uid;
+    private String url;
     public Map<String, Boolean> users = new HashMap<>();
 
     public User(){
 
     }
 
-    public User(String fullName, String email, String contact, String fantasyName, String state, String city, String district, String adress, String number, String keyUser, String uid) {
+    public User(String fullName, String email, String contact, String fantasyName, String state, String city, String district, String adress, String number, String keyUser, String uid, String url) {
         this.fullName = fullName;
         this.email = email;
         this.contact = contact;
@@ -36,14 +38,8 @@ public class User {
         this.number = number;
         this.keyUser = keyUser;
         this.uid = uid;
-    }
+        this.url = url;
 
-    public String getUid() {
-        return uid;
-    }
-
-    public void setUid(String uid) {
-        this.uid = uid;
     }
 
     public String getFullName() {
@@ -76,6 +72,14 @@ public class User {
 
     public void setFantasyName(String fantasyName) {
         this.fantasyName = fantasyName;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public String getState() {
@@ -124,6 +128,22 @@ public class User {
 
     public void setKeyUser(String keyUser) {
         this.keyUser = keyUser;
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     @Exclude

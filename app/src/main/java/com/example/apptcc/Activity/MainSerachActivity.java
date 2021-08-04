@@ -221,9 +221,9 @@ public class MainSerachActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
                 categoryList = new ArrayList<String>();
-                for(DataSnapshot stateSnapshot : snapshot.getChildren()){
-                    String stateName = stateSnapshot.child("name").getValue(String.class);
-                    categoryList.add(stateName);
+                for(DataSnapshot CategorySnapshot : snapshot.getChildren()){
+                    String CategoryName = CategorySnapshot.child("name").getValue(String.class);
+                    categoryList.add(CategoryName);
                 }
 
                 ArrayAdapter<String> categoryAdapter = new ArrayAdapter<String>(MainSerachActivity.this, R.layout.spinner_layout_with_border, categoryList);

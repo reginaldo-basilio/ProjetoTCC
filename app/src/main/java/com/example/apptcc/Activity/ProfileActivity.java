@@ -80,6 +80,7 @@ public class ProfileActivity extends AppCompatActivity {
                                         edtNumber.getText().toString(),
                                         user.getKeyUser(),
                                         user.getUid(),
+                                        user.getUrl(),
                                         edtPassword.getText().toString());
                             }else{
                                 Toast.makeText(ProfileActivity.this, "As senhas não correspondem!", Toast.LENGTH_SHORT).show();
@@ -134,10 +135,10 @@ public class ProfileActivity extends AppCompatActivity {
         });
     }
 
-    private void updateUser(String fullName, String email, String contact, String fantasyName, String state, String city, String district, String adress, String number, String keyUser, String uid, String newPassword) {
+    private void updateUser(String fullName, String email, String contact, String fantasyName, String state, String city, String district, String adress, String number, String keyUser, String uid, String url, String newPassword) {
         reference = FirebaseDatabase.getInstance().getReference();
         reference.child("users");
-        User user = new User(fullName, email, contact, fantasyName, state, city, district, adress, number, keyUser, uid);
+        User user = new User(fullName, email, contact, fantasyName, state, city, district, adress, number, keyUser, uid, url);
 
         Map<String, Object> userValues = user.toMap();
         Map<String, Object> childUpdates = new HashMap<>();
