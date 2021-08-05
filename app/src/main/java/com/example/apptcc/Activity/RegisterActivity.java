@@ -50,7 +50,7 @@ public class RegisterActivity extends AppCompatActivity {
     private ImageView imgFrontImage;
     private BootstrapEditText edtName, edtEmail, edtContact, edtFantasyName, edtDistrict;
     private Spinner spState, spCity, spCategory;
-    private BootstrapEditText edtAdress, edtNumber, edtPassword, edtConfirmPassword;
+    private BootstrapEditText edtAddress, edtNumber, edtPassword, edtConfirmPassword;
     private BootstrapButton btnRegister, btnCancel;
     private List<String> stateList, cityList, categoryList;
 
@@ -82,7 +82,7 @@ public class RegisterActivity extends AppCompatActivity {
         spState = (Spinner) findViewById(R.id.spState);
         spCity = (Spinner) findViewById(R.id.spCity);
         edtDistrict = (BootstrapEditText) findViewById(R.id.edtDistrict);
-        edtAdress = (BootstrapEditText) findViewById(R.id.edtAdress);
+        edtAddress = (BootstrapEditText) findViewById(R.id.edtAddress);
         edtNumber = (BootstrapEditText) findViewById(R.id.edtNumber);
         edtPassword = (BootstrapEditText) findViewById(R.id.edtPassword);
         edtConfirmPassword = (BootstrapEditText) findViewById(R.id.edtConfirmPassword);
@@ -148,7 +148,9 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void createUserWithImage(){
-        String fileName = UUID.randomUUID().toString();
+
+        userAuth = FirebaseAuth.getInstance().getCurrentUser();
+        String fileName = userAuth.getUid();
         storageRef = FirebaseStorage.getInstance().getReference("/images/" + fileName);
         storageRef.putFile(mUri)
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -168,7 +170,7 @@ public class RegisterActivity extends AppCompatActivity {
                                 user.setState(spState.getSelectedItem().toString());
                                 user.setCity(spCity.getSelectedItem().toString());
                                 user.setDistrict(edtDistrict.getText().toString());
-                                user.setAdress(edtAdress.getText().toString());
+                                user.setAddress(edtAddress.getText().toString());
                                 user.setNumber(edtNumber.getText().toString());
                                 user.setPassword(edtPassword.getText().toString());
 

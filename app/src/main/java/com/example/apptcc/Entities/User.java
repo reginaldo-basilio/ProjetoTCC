@@ -14,7 +14,7 @@ public class User {
     private String state;
     private String city;
     private String district;
-    private String adress;
+    private String address;
     private String number;
     private String keyUser;
     private String password;
@@ -26,15 +26,16 @@ public class User {
 
     }
 
-    public User(String fullName, String email, String contact, String fantasyName, String state, String city, String district, String adress, String number, String keyUser, String uid, String url) {
+    public User(String fullName, String email, String contact, String fantasyName, String category, String state, String city, String district, String address, String number, String keyUser, String uid, String url) {
         this.fullName = fullName;
         this.email = email;
         this.contact = contact;
         this.fantasyName = fantasyName;
+        this.category = category;
         this.state = state;
         this.city = city;
         this.district = district;
-        this.adress = adress;
+        this.address = address;
         this.number = number;
         this.keyUser = keyUser;
         this.uid = uid;
@@ -106,12 +107,12 @@ public class User {
         this.district = district;
     }
 
-    public String getAdress() {
-        return adress;
+    public String getAddress() {
+        return address;
     }
 
-    public void setAdress(String adress) {
-        this.adress = adress;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getNumber() {
@@ -162,13 +163,15 @@ public class User {
         result.put("email", email);
         result.put("contact", contact);
         result.put("fantasyName", fantasyName);
+        result.put("category", category);
         result.put("state", state);
         result.put("city", city);
         result.put("district", district);
-        result.put("adress", adress);
+        result.put("address", address);
         result.put("number", number);
         result.put("keyUser", keyUser);
         result.put("uid", uid);
+        result.put("url", url);
         result.put("users", users);
 
         return result;
