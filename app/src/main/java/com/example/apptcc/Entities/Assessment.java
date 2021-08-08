@@ -4,7 +4,7 @@ public class Assessment {
 
     private String date;
     private String comment;
-    private int assessmentValue;
+    private float assessmentValue;
     private String keyAssessment;
     private String uidAssessment;
 
@@ -36,7 +36,7 @@ public class Assessment {
         this.comment = comment;
     }
 
-    public int getAssessmentValue() {
+    public float getAssessmentValue() {
         return assessmentValue;
     }
 

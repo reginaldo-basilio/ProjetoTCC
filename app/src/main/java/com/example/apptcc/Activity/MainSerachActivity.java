@@ -3,10 +3,11 @@ package com.example.apptcc.Activity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,10 +18,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.beardedhen.androidbootstrap.BootstrapButton;
-import com.example.apptcc.Adapter.UserAdsAdapter;
-import com.example.apptcc.Entities.Ads;
-import com.example.apptcc.Entities.City;
+import com.beardedhen.androidbootstrap.BootstrapEditText;
 import com.example.apptcc.Entities.State;
+import com.example.apptcc.Entities.User;
 import com.example.apptcc.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -44,8 +44,11 @@ public class MainSerachActivity extends AppCompatActivity {
     private Spinner spState, spCity, spCategory;
     private BootstrapButton btnResearch, btnAddAds;
     private TextView txtQuestion, txtRegisterOrLogin;
+    private User user;
+    private String stateSelected, citySelected, categorySelected;
 
     private List<String> stateList, cityList, categoryList;
+    private List<User> userResultList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +66,7 @@ public class MainSerachActivity extends AppCompatActivity {
         btnResearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 openSearchResultActivity();
             }
         });
@@ -83,11 +87,22 @@ public class MainSerachActivity extends AppCompatActivity {
 
         loadStates();
 
-        spState.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+       spState.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView parent, View arg1, int arg2, long arg3) {
-                String currentSelectedItem = spState.getSelectedItem().toString();
-                loadCities(currentSelectedItem);
+                //stateSelected = spState.getSelectedItem().toString();
+                String stateSelected = spState.getSelectedItem().toString();
+                loadCities(stateSelected);
+            }
+            @Override
+            public void onNothingSelected(AdapterView arg0) {
+            }
+        });
+
+        spCity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView parent, View arg1, int arg2, long arg3) {
+                citySelected = spCity.getSelectedItem().toString();
             }
             @Override
             public void onNothingSelected(AdapterView arg0) {
@@ -96,6 +111,104 @@ public class MainSerachActivity extends AppCompatActivity {
 
         loadCategories();
 
+        spCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView parent, View arg1, int arg2, long arg3) {
+                categorySelected = spCategory.getSelectedItem().toString();
+            }
+            @Override
+            public void onNothingSelected(AdapterView arg0) {
+            }
+        });
+
+        createListResearch();
+    }
+
+    private void createListResearch(){
+        userResultList = new ArrayList<>();
+        databaseReference = FirebaseDatabase.getInstance().getReference("users");
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                for(DataSnapshot adsSnapshot : snapshot.getChildren()){
+                    user = adsSnapshot.getValue(User.class);
+                    /*if (user.getState().equals(stateSelected) &&
+                        user.getCity().equals(citySelected) &&
+                        user.getCategory().equals(categorySelected)) {
+                        userResultList.add(user);
+                    }*/
+                    userResultList.add(user);
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    private void loadStates(){
+        databaseReference = FirebaseDatabase.getInstance().getReference("states");
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                stateList = new ArrayList<String>();
+                for(DataSnapshot stateSnapshot : snapshot.getChildren()){
+                    String stateName = stateSnapshot.child("name").getValue(String.class);
+                    stateList.add(stateName);
+                }
+                ArrayAdapter<String> stateAdapter = new ArrayAdapter<String>(MainSerachActivity.this, R.layout.spinner_layout_with_border, stateList);
+                spState.setAdapter(stateAdapter);
+            }
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+            }
+        });
+
+    }
+
+    private void loadCities(String currentSelectedItem){
+        databaseReference = FirebaseDatabase.getInstance().getReference("cities");
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                cityList = new ArrayList<String>();
+                for(DataSnapshot citySnapshot : snapshot.getChildren()){
+                    String stateName = citySnapshot.child("stateName").getValue(String.class);
+                    String cityName = citySnapshot.child("name").getValue(String.class);
+                    if (currentSelectedItem.equals(stateName)) {
+                        cityList.add(cityName);
+                    }
+                }
+                ArrayAdapter<String> cityAdapter = new ArrayAdapter<String>(MainSerachActivity.this, R.layout.spinner_layout_with_border, cityList);
+                spCity.setAdapter(cityAdapter);
+            }
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    private void loadCategories(){
+        databaseReference = FirebaseDatabase.getInstance().getReference("categories");
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                categoryList = new ArrayList<String>();
+                for(DataSnapshot CategorySnapshot : snapshot.getChildren()){
+                    String CategoryName = CategorySnapshot.child("name").getValue(String.class);
+                    categoryList.add(CategoryName);
+                }
+                ArrayAdapter<String> categoryAdapter = new ArrayAdapter<String>(MainSerachActivity.this, R.layout.spinner_layout_with_border, categoryList);
+                spCategory.setAdapter(categoryAdapter);
+            }
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+            }
+        });
     }
 
     @Override
@@ -137,6 +250,12 @@ public class MainSerachActivity extends AppCompatActivity {
         Toast.makeText(MainSerachActivity.this, "Usuário Desconectado!", Toast.LENGTH_SHORT).show();
     }
 
+    private void openSearchResultActivity() {
+        Intent i = new Intent(MainSerachActivity.this, SearchResultActivity.class);
+        i.putParcelableArrayListExtra("users", (ArrayList<? extends Parcelable>) userResultList);
+        startActivity(i);
+    }
+
     private void openMainSerachActivity() {
         Intent intent = new Intent(MainSerachActivity.this, MainSerachActivity.class);
         startActivity(intent);
@@ -154,87 +273,9 @@ public class MainSerachActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void openSearchResultActivity() {
-        Intent intent = new Intent(MainSerachActivity.this, SearchResultActivity.class);
-        startActivity(intent);
-    }
-
     private void toEnter(){
         Intent intent = new Intent(MainSerachActivity.this, LoginActivity.class);
         startActivity(intent);
         //finish();
     }
-
-    private void loadStates(){
-        databaseReference = FirebaseDatabase.getInstance().getReference("states");
-        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                stateList = new ArrayList<String>();
-                for(DataSnapshot stateSnapshot : snapshot.getChildren()){
-                    String stateName = stateSnapshot.child("name").getValue(String.class);
-                    stateList.add(stateName);
-                }
-
-                ArrayAdapter<String> stateAdapter = new ArrayAdapter<String>(MainSerachActivity.this, R.layout.spinner_layout_with_border, stateList);
-                spState.setAdapter(stateAdapter);
-            }
-
-            @Override
-            public void onCancelled(@NonNull @NotNull DatabaseError error) {
-
-            }
-        });
-    }
-
-    private void loadCities(String currentSelectedItem){
-        databaseReference = FirebaseDatabase.getInstance().getReference("cities");
-        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-
-                cityList = new ArrayList<String>();
-                for(DataSnapshot citySnapshot : snapshot.getChildren()){
-
-                    String stateName = citySnapshot.child("stateName").getValue(String.class);
-                    String cityName = citySnapshot.child("name").getValue(String.class);
-
-                    if (currentSelectedItem.equals(stateName)) {
-                        cityList.add(cityName);
-                    }
-                }
-
-                ArrayAdapter<String> cityAdapter = new ArrayAdapter<String>(MainSerachActivity.this, R.layout.spinner_layout_with_border, cityList);
-                spCity.setAdapter(cityAdapter);
-            }
-
-            @Override
-            public void onCancelled(@NonNull @NotNull DatabaseError error) {
-
-            }
-        });
-    }
-
-    private void loadCategories(){
-        databaseReference = FirebaseDatabase.getInstance().getReference("categories");
-        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                categoryList = new ArrayList<String>();
-                for(DataSnapshot CategorySnapshot : snapshot.getChildren()){
-                    String CategoryName = CategorySnapshot.child("name").getValue(String.class);
-                    categoryList.add(CategoryName);
-                }
-
-                ArrayAdapter<String> categoryAdapter = new ArrayAdapter<String>(MainSerachActivity.this, R.layout.spinner_layout_with_border, categoryList);
-                spCategory.setAdapter(categoryAdapter);
-            }
-
-            @Override
-            public void onCancelled(@NonNull @NotNull DatabaseError error) {
-
-            }
-        });
-    }
-
 }

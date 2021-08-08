@@ -62,6 +62,9 @@ public class ProfileActivity extends AppCompatActivity {
     private FirebaseStorage storage;
     private StorageReference storageRef;
     private Uri mUri;
+    private int flag;
+
+    private ArrayAdapter<String> categoryAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -162,6 +165,7 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private void loadUserData(){
+
         firebaseAuth = FirebaseAuth.getInstance();
         String emailCurrentUser = firebaseAuth.getCurrentUser().getEmail();
         reference = FirebaseDatabase.getInstance().getReference();
@@ -174,8 +178,6 @@ public class ProfileActivity extends AppCompatActivity {
                     edtEmail.setText(user.getEmail());
                     edtContact.setText(user.getContact());
                     edtFantasyName.setText(user.getFantasyName());
-                    //edtState.setText(user.getState());
-                    //edtCity.setText(user.getCity());
                     edtDistrict.setText(user.getDistrict());
                     edtAddress.setText(user.getAddress());
                     edtNumber.setText(user.getNumber());
@@ -215,29 +217,32 @@ public class ProfileActivity extends AppCompatActivity {
                     });
 
         }
+        if(flag == 1){
+            firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+            String fileName = firebaseUser.getUid();
+            storageRef = FirebaseStorage.getInstance().getReference("/images/" + fileName);
+            storageRef.putFile(mUri)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    String url = uri.toString();
+                                    Log.i("Teste", uri.toString());
+                                }
+                            });
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull @NotNull Exception e) {
+                            Toast.makeText(ProfileActivity.this, "Falha ao carregar imagem!", Toast.LENGTH_SHORT).show();
+                        }
+                    });
 
-        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        String fileName = firebaseUser.getUid();
-        storageRef = FirebaseStorage.getInstance().getReference("/images/" + fileName);
-        storageRef.putFile(mUri)
-                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                            @Override
-                            public void onSuccess(Uri uri) {
-                                String url = uri.toString();
-                                Log.i("Teste", uri.toString());
-                            }
-                        });
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull @NotNull Exception e) {
-                        Toast.makeText(ProfileActivity.this, "Falha ao carregar imagem!", Toast.LENGTH_SHORT).show();
-                    }
-                });
+        }
+
 
         Toast.makeText(ProfileActivity.this, "Dados atualizados!", Toast.LENGTH_SHORT).show();
         finish();
@@ -304,7 +309,7 @@ public class ProfileActivity extends AppCompatActivity {
                     categoryList.add(CategoryName);
                 }
 
-                ArrayAdapter<String> categoryAdapter = new ArrayAdapter<String>(ProfileActivity.this, R.layout.spinner_layout_with_border, categoryList);
+                categoryAdapter = new ArrayAdapter<String>(ProfileActivity.this, R.layout.spinner_layout_with_border, categoryList);
                 spCategory.setAdapter(categoryAdapter);
             }
 
@@ -339,8 +344,10 @@ public class ProfileActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        flag = 0;
         if(requestCode == 0){
             mUri = data.getData();
+            flag = 1;
             Bitmap bitmap = null;
             try {
                 bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), mUri);
@@ -355,31 +362,6 @@ public class ProfileActivity extends AppCompatActivity {
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType("image/*");
         startActivityForResult(intent, 0);
-    }
-
-    private void loadNewImage(){
-
-        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        String fileName = firebaseUser.getUid();
-        storageRef = FirebaseStorage.getInstance().getReference("/images/" + fileName);
-        storageRef.putFile(mUri)
-                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                            @Override
-                            public void onSuccess(Uri uri) {
-                                String url = uri.toString();
-                            }
-                        });
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull @NotNull Exception e) {
-                        Toast.makeText(ProfileActivity.this, "Falha ao carregar imagem!", Toast.LENGTH_SHORT).show();
-                    }
-                });
     }
 
 }

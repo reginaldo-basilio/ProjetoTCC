@@ -12,12 +12,12 @@
 
     <TextView
         android:id="@+id/txtADS"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:gravity="center"
         android:text="Minha tela de anuncios!"
         android:textColor="#006400"
-        android:layout_marginTop="-120dp"
+        android:layout_marginTop="-100dp"
         android:textSize="20sp" />
 
     <com.beardedhen.androidbootstrap.BootstrapButton
@@ -32,17 +32,7 @@
         android:layout_marginTop="5dp"
         app:showOutline="false" />
 
-    <com.beardedhen.androidbootstrap.BootstrapButton
-        android:id="@+id/btnInsertAssessment"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Inserir Avaliação"
-        app:bootstrapBrand="success"
-        app:bootstrapSize="lg"
-        app:buttonMode="regular"
-        app:roundedCorners="true"
-        android:layout_marginTop="5dp"
-        app:showOutline="false" />
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewAdsUser"

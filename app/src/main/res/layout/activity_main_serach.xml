@@ -17,7 +17,7 @@
         android:text="Escolha os filtros e Achou!"
         android:textColor="#006400"
         android:textStyle="bold"
-        android:layout_marginTop="-50dp"
+        android:layout_marginTop="-45dp"
         android:layout_marginBottom="15dp"
         android:textSize="22sp"/>
 
@@ -137,7 +137,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.767" />
-
 
 </LinearLayout>
 

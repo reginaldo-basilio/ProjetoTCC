@@ -4,18 +4,36 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    android:gravity="center"
+    android:layout_margin="16dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Activity.SearchResultActivity">
 
     <TextView
-        android:id="@+id/txtSelectState"
+        android:id="@+id/txtTitleUser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Selecione um Estado"
-        android:layout_gravity="left"
+        android:layout_gravity="center"
+        android:text="Escolha um anunciante!"
         android:textColor="#006400"
-        android:textSize="20sp" />
+        android:textSize="20sp"/>
+    <com.beardedhen.androidbootstrap.BootstrapButton
+        android:id="@+id/btnNewResearch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Fazer nova pesquisa"
+        app:bootstrapBrand="success"
+        app:bootstrapSize="lg"
+        app:buttonMode="regular"
+        app:roundedCorners="true"
+        android:layout_marginTop="5dp"
+        app:showOutline="true" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewShowUser"
+        android:scrollbars="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"/>
 
 </LinearLayout>

@@ -1,11 +1,14 @@
 package com.example.apptcc.Entities;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.firebase.database.Exclude;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class User {
+public class User implements Parcelable {
     private String fullName;
     private String email;
     private String contact;
@@ -42,6 +45,35 @@ public class User {
         this.url = url;
 
     }
+
+    protected User(Parcel in) {
+        fullName = in.readString();
+        email = in.readString();
+        contact = in.readString();
+        fantasyName = in.readString();
+        category = in.readString();
+        state = in.readString();
+        city = in.readString();
+        district = in.readString();
+        address = in.readString();
+        number = in.readString();
+        keyUser = in.readString();
+        password = in.readString();
+        uid = in.readString();
+        url = in.readString();
+    }
+
+    public static final Creator<User> CREATOR = new Creator<User>() {
+        @Override
+        public User createFromParcel(Parcel in) {
+            return new User(in);
+        }
+
+        @Override
+        public User[] newArray(int size) {
+            return new User[size];
+        }
+    };
 
     public String getFullName() {
         return fullName;
@@ -175,5 +207,29 @@ public class User {
         result.put("users", users);
 
         return result;
+    }
+
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(fullName);
+        dest.writeString(email);
+        dest.writeString(contact);
+        dest.writeString(fantasyName);
+        dest.writeString(category);
+        dest.writeString(state);
+        dest.writeString(city);
+        dest.writeString(district);
+        dest.writeString(address);
+        dest.writeString(number);
+        dest.writeString(keyUser);
+        dest.writeString(password);
+        dest.writeString(uid);
+        dest.writeString(url);
     }
 }

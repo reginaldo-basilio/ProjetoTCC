@@ -83,7 +83,7 @@ public class MyAdsActivity extends AppCompatActivity {
         });
 
         btnInsertAds = (BootstrapButton) findViewById(R.id.btnInsertAds);
-        btnInsertAssessment = (BootstrapButton) findViewById(R.id.btnInsertAssessment);
+        //btnInsertAssessment = (BootstrapButton) findViewById(R.id.btnInsertAssessment);
 
         btnInsertAds.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,12 +92,12 @@ public class MyAdsActivity extends AppCompatActivity {
             }
         });
 
-        btnInsertAssessment.setOnClickListener(new View.OnClickListener() {
+        /*btnInsertAssessment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openCreateAssessmentActivity();
             }
-        });
+        });*/
     }
 
     private void openCreateAdsActivity() {

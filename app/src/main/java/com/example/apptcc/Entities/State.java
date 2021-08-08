@@ -8,6 +8,11 @@ public class State {
     public State(){
 
     }
+
+    public State(String name) {
+        this.name = name;
+    }
+
     public State(String id, String initials, String name) {
         this.id = id;
         this.initials = initials;
