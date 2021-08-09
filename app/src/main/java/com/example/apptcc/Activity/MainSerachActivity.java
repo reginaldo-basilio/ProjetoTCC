@@ -48,7 +48,7 @@ public class MainSerachActivity extends AppCompatActivity {
     private String stateSelected, citySelected, categorySelected;
 
     private List<String> stateList, cityList, categoryList;
-    private List<User> userResultList;
+    private List<User> userStateList, userCityList = new ArrayList<>(), userResultList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,12 +87,32 @@ public class MainSerachActivity extends AppCompatActivity {
 
         loadStates();
 
-       spState.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        spState.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView parent, View arg1, int arg2, long arg3) {
-                //stateSelected = spState.getSelectedItem().toString();
-                String stateSelected = spState.getSelectedItem().toString();
+                stateSelected = spState.getSelectedItem().toString();
+                //String stateSelected = spState.getSelectedItem().toString();
                 loadCities(stateSelected);
+
+                userStateList = new ArrayList<>();
+                databaseReference = FirebaseDatabase.getInstance().getReference("users");
+                databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                        for(DataSnapshot userSnapshot : snapshot.getChildren()){
+                            user = userSnapshot.getValue(User.class);
+                            if (user.getState().equals(stateSelected)){
+                                userStateList.add(user);
+                            }
+                            //userResultList.add(user);
+                        }
+                    }
+                    @Override
+                    public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+                    }
+                });
+
             }
             @Override
             public void onNothingSelected(AdapterView arg0) {
@@ -103,6 +123,16 @@ public class MainSerachActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView parent, View arg1, int arg2, long arg3) {
                 citySelected = spCity.getSelectedItem().toString();
+
+                userCityList.clear();
+                //userCityList = new ArrayList<>();
+                for(User item : userStateList){
+                    if (item.getCity().equals(citySelected)){
+                        userCityList.add(item);
+                    }
+                    //userResultList.add(user);
+                }
+
             }
             @Override
             public void onNothingSelected(AdapterView arg0) {
@@ -115,13 +145,21 @@ public class MainSerachActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView parent, View arg1, int arg2, long arg3) {
                 categorySelected = spCategory.getSelectedItem().toString();
+
+                userResultList = new ArrayList<>();
+                for(User item : userCityList){
+                    if (item.getCategory().equals(categorySelected)){
+                        userResultList.add(item);
+                    }
+                    //userResultList.add(user);
+                }
             }
             @Override
             public void onNothingSelected(AdapterView arg0) {
             }
         });
 
-        createListResearch();
+        //createListResearch();
     }
 
     private void createListResearch(){
