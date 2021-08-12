@@ -10,12 +10,10 @@ import android.view.View;
 
 import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.example.apptcc.Adapter.ResultSearchUsersAdapter;
-import com.example.apptcc.Adapter.UserAdsAdapter;
 import com.example.apptcc.Entities.User;
 import com.example.apptcc.R;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class SearchResultActivity extends AppCompatActivity {
 

@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class User implements Parcelable {
+    private int counter;
     private String fullName;
     private String email;
     private String contact;
@@ -29,7 +30,25 @@ public class User implements Parcelable {
 
     }
 
+    public User(int counter, String fullName, String email, String contact, String fantasyName, String category, String state, String city, String district, String address, String number, String keyUser, String uid, String url) {
+        this.counter = counter;
+        this.fullName = fullName;
+        this.email = email;
+        this.contact = contact;
+        this.fantasyName = fantasyName;
+        this.category = category;
+        this.state = state;
+        this.city = city;
+        this.district = district;
+        this.address = address;
+        this.number = number;
+        this.keyUser = keyUser;
+        this.uid = uid;
+        this.url = url;
+    }
+
     public User(String fullName, String email, String contact, String fantasyName, String category, String state, String city, String district, String address, String number, String keyUser, String uid, String url) {
+
         this.fullName = fullName;
         this.email = email;
         this.contact = contact;
@@ -47,6 +66,7 @@ public class User implements Parcelable {
     }
 
     protected User(Parcel in) {
+        counter = in.readInt();
         fullName = in.readString();
         email = in.readString();
         contact = in.readString();
@@ -74,6 +94,14 @@ public class User implements Parcelable {
             return new User[size];
         }
     };
+
+    public int getCounter() {
+        return counter;
+    }
+
+    public void setCounter(int counter) {
+        this.counter = counter;
+    }
 
     public String getFullName() {
         return fullName;
@@ -191,6 +219,7 @@ public class User implements Parcelable {
     @Exclude
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
+        result.put("counter", counter);
         result.put("fullName", fullName);
         result.put("email", email);
         result.put("contact", contact);
@@ -217,6 +246,7 @@ public class User implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(counter);
         dest.writeString(fullName);
         dest.writeString(email);
         dest.writeString(contact);

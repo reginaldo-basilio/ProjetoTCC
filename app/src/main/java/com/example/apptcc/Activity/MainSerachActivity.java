@@ -6,8 +6,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,8 +16,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.beardedhen.androidbootstrap.BootstrapButton;
-import com.beardedhen.androidbootstrap.BootstrapEditText;
-import com.example.apptcc.Entities.State;
 import com.example.apptcc.Entities.User;
 import com.example.apptcc.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -289,9 +285,13 @@ public class MainSerachActivity extends AppCompatActivity {
     }
 
     private void openSearchResultActivity() {
-        Intent i = new Intent(MainSerachActivity.this, SearchResultActivity.class);
-        i.putParcelableArrayListExtra("users", (ArrayList<? extends Parcelable>) userResultList);
-        startActivity(i);
+        if(userResultList.isEmpty()){
+            Toast.makeText(this, "Nenhum anunciante encontrado, por favor altere os filtros!", Toast.LENGTH_LONG).show();
+        }else {
+            Intent i = new Intent(MainSerachActivity.this, SearchResultActivity.class);
+            i.putParcelableArrayListExtra("users", (ArrayList<? extends Parcelable>) userResultList);
+            startActivity(i);
+        }
     }
 
     private void openMainSerachActivity() {

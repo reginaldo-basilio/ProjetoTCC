@@ -10,10 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.example.apptcc.Activity.MyAdsActivity;
-import com.example.apptcc.Activity.SearchResultActivity;
 import com.example.apptcc.Entities.Ads;
-import com.example.apptcc.Entities.User;
 import com.example.apptcc.R;
 import com.google.firebase.database.ValueEventListener;
 

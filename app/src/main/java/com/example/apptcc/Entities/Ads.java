@@ -7,9 +7,6 @@ public class Ads {
     private String keyAds;
     private String uidAds;
     private String url;
-    private String category;
-    private String state;
-    private String city;
 
     public Ads(){
 
@@ -20,9 +17,6 @@ public class Ads {
         this.description = description;
         this.keyAds = keyAds;
         this.url = url;
-        this.category = category;
-        this.state = state;
-        this.city = city;
     }
 
     public Ads(String title, String description, String keyAds, String uidAds, String url, String category, String state, String city) {
@@ -31,9 +25,6 @@ public class Ads {
         this.keyAds = keyAds;
         this.uidAds = uidAds;
         this.url = url;
-        this.category = category;
-        this.state = state;
-        this.city = city;
     }
 
     public String getTitle() {
@@ -74,29 +65,5 @@ public class Ads {
 
     public void setUrl(String url) {
         this.url = url;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
-    public String getState() {
-        return state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
     }
 }

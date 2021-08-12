@@ -10,7 +10,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.example.apptcc.Entities.Ads;
 import com.example.apptcc.Entities.User;
 import com.example.apptcc.R;
 

@@ -43,7 +43,6 @@ import org.jetbrains.annotations.NotNull;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -161,6 +160,7 @@ public class RegisterActivity extends AppCompatActivity {
                             public void onSuccess(Uri uri) {
                                 String url = uri.toString();
                                 user = new User();
+                                user.setCounter(0);
                                 user.setFullName(edtName.getText().toString());
                                 user.setEmail(edtEmail.getText().toString());
                                 user.setContact(edtContact.getText().toString());
