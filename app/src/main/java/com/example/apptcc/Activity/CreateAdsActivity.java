@@ -153,24 +153,19 @@ public class CreateAdsActivity extends AppCompatActivity {
         int counter = user1.getCounter();
         counter += 1;
         user1.setCounter(counter);
+
         databaseReference = FirebaseDatabase.getInstance().getReference();
         databaseReference.child("users");
-
-
         Map<String, Object> userValues = user1.toMap();
         Map<String, Object> childUpdates = new HashMap<>();
         childUpdates.put("/users/" + keyUser, userValues);
         databaseReference.updateChildren(childUpdates);
-
 
         ads = new Ads();
         ads.setTitle(edtTitle.getText().toString());
         ads.setDescription(edtDescription.getText().toString());
         ads.setUidAds(userAuth.getUid());
         ads.setUrl(url);
-
-
-
         myRef = database.getReference("ads");
         String key = myRef.child("ads").push().getKey();
         ads.setKeyAds(key);
