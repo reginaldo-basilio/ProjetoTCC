@@ -3,16 +3,21 @@ package com.example.apptcc.Adapter;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.bumptech.glide.Glide;
+import com.example.apptcc.Activity.MainSerachActivity;
 import com.example.apptcc.Activity.MyAdsActivity;
+import com.example.apptcc.Activity.SearchResultActivity;
+import com.example.apptcc.Activity.UpdateAdsActivity;
 import com.example.apptcc.Entities.Ads;
 import com.example.apptcc.Entities.User;
 import com.example.apptcc.R;
@@ -26,11 +31,13 @@ import com.google.firebase.database.ValueEventListener;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.ViewModel;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class UserAdsAdapter extends RecyclerView.Adapter<UserAdsAdapter.ViewHolder> {
@@ -41,6 +48,7 @@ public class UserAdsAdapter extends RecyclerView.Adapter<UserAdsAdapter.ViewHold
     private DatabaseReference mDatabase;
     private FirebaseUser userAuth;
     private User user;
+    private Ads item;
 
     public UserAdsAdapter(){
 
@@ -68,7 +76,7 @@ public class UserAdsAdapter extends RecyclerView.Adapter<UserAdsAdapter.ViewHold
     @Override
     public void onBindViewHolder(final UserAdsAdapter.ViewHolder holder, int position) {
 
-        Ads item = mUserAdsList.get(position);
+        item = mUserAdsList.get(position);
 
         holder.txtTitleAdsUser.setText(item.getTitle());
         Glide.with(context).load(item.getUrl()).into(holder.imgAdsUser);
@@ -137,7 +145,7 @@ public class UserAdsAdapter extends RecyclerView.Adapter<UserAdsAdapter.ViewHold
         btnUpdateAds.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                openUpdateAdsActivity();
                 dialog.dismiss();
             }
         });
@@ -169,6 +177,12 @@ public class UserAdsAdapter extends RecyclerView.Adapter<UserAdsAdapter.ViewHold
 
     private void openMyAdsActivity() {
         Intent intent = new Intent(context, MyAdsActivity.class);
+        context.startActivity(intent);
+    }
+
+    private void openUpdateAdsActivity() {
+        Intent intent = new Intent(context, UpdateAdsActivity.class);
+        intent.putExtra("ads", item);
         context.startActivity(intent);
     }
 

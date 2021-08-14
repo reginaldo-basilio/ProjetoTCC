@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.beardedhen.androidbootstrap.BootstrapButton;
@@ -34,7 +35,7 @@ public class MyAdsActivity extends AppCompatActivity {
     private UserAdsAdapter mUserAdsAdapter;
     private DatabaseReference databaseReference;
     private FirebaseUser userAuth;
-    private BootstrapButton btnInsertAds, btnInsertAssessment;
+    private BootstrapButton btnInsertAds;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +51,7 @@ public class MyAdsActivity extends AppCompatActivity {
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                //adsList.clear();
+                adsList.clear();
                 for(DataSnapshot adsSnapshot : snapshot.getChildren()){
                     ads = adsSnapshot.getValue(Ads.class);
                     if (ads.getUidAds().equals(uid)) {
@@ -68,7 +69,6 @@ public class MyAdsActivity extends AppCompatActivity {
         });
 
         btnInsertAds = (BootstrapButton) findViewById(R.id.btnInsertAds);
-        //btnInsertAssessment = (BootstrapButton) findViewById(R.id.btnInsertAssessment);
 
         btnInsertAds.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,25 +76,12 @@ public class MyAdsActivity extends AppCompatActivity {
                 openCreateAdsActivity();
             }
         });
-
-        /*btnInsertAssessment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openCreateAssessmentActivity();
-            }
-        });*/
     }
 
     private void openCreateAdsActivity() {
         Intent intent = new Intent(MyAdsActivity.this, CreateAdsActivity.class);
         startActivity(intent);
         //finish();
-    }
-
-    private void openCreateAssessmentActivity() {
-        Intent intent = new Intent(MyAdsActivity.this, CreateAssessmentActivity.class);
-        startActivity(intent);
-        finish();
     }
 
 

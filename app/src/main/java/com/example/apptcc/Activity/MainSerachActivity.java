@@ -288,9 +288,9 @@ public class MainSerachActivity extends AppCompatActivity {
         if(userResultList.isEmpty()){
             Toast.makeText(this, "Nenhum anunciante encontrado, por favor altere os filtros!", Toast.LENGTH_LONG).show();
         }else {
-            Intent i = new Intent(MainSerachActivity.this, SearchResultActivity.class);
-            i.putParcelableArrayListExtra("users", (ArrayList<? extends Parcelable>) userResultList);
-            startActivity(i);
+            Intent intent = new Intent(MainSerachActivity.this, SearchResultActivity.class);
+            intent.putParcelableArrayListExtra("users", (ArrayList<? extends Parcelable>) userResultList);
+            startActivity(intent);
         }
     }
 

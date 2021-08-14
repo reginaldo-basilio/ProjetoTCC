@@ -102,7 +102,6 @@ public class ProfileActivity extends AppCompatActivity {
                 firebaseAuth = FirebaseAuth.getInstance();
                 String emailCurrentUser = firebaseAuth.getCurrentUser().getEmail();
                 reference = FirebaseDatabase.getInstance().getReference();
-
                 reference.child("users").orderByChild("email").equalTo(emailCurrentUser).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {

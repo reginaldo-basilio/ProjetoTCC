@@ -45,6 +45,7 @@ public class CreateAdsActivity extends AppCompatActivity {
     private BootstrapEditText edtTitle, edtDescription;
     private BootstrapButton btnInsert, btnCancel;
     private Uri mUri;
+    private String imageName;
 
     private FirebaseStorage storage;
     private FirebaseAuth mAuth;
@@ -87,8 +88,8 @@ public class CreateAdsActivity extends AppCompatActivity {
                 }else{
                     userAuth = FirebaseAuth.getInstance().getCurrentUser();
 
-                    String fileName = UUID.randomUUID().toString();
-                    storageRef = FirebaseStorage.getInstance().getReference("/images/" + fileName);
+                    imageName = UUID.randomUUID().toString();
+                    storageRef = FirebaseStorage.getInstance().getReference("/images/" + imageName);
                     storageRef.putFile(mUri)
                             .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                                 @Override
@@ -166,6 +167,7 @@ public class CreateAdsActivity extends AppCompatActivity {
         ads.setDescription(edtDescription.getText().toString());
         ads.setUidAds(userAuth.getUid());
         ads.setUrl(url);
+        ads.setImageName(imageName);
         myRef = database.getReference("ads");
         String key = myRef.child("ads").push().getKey();
         ads.setKeyAds(key);
