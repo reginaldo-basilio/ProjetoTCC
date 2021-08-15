@@ -1,6 +1,7 @@
 package com.example.apptcc.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.apptcc.Activity.ShowDataUserActivity;
+import com.example.apptcc.Activity.UpdateAdsActivity;
 import com.example.apptcc.Entities.User;
 import com.example.apptcc.R;
 
@@ -24,6 +27,7 @@ public class ResultSearchUsersAdapter extends RecyclerView.Adapter<ResultSearchU
 
     private List<User> mUserList;
     private Context context;
+    private User item;
 
     public ResultSearchUsersAdapter(List<User> mUserAdsList, Context context) {
         this.mUserList = mUserAdsList;
@@ -42,7 +46,7 @@ public class ResultSearchUsersAdapter extends RecyclerView.Adapter<ResultSearchU
     @Override
     public void onBindViewHolder(@NonNull @NotNull ResultSearchUsersAdapter.ViewHolder holder, int position) {
 
-        User item = mUserList.get(position);
+        item = mUserList.get(position);
 
         holder.txtfantasyName.setText(item.getFantasyName());
         holder.txtDistrict.setText(item.getDistrict());
@@ -50,11 +54,10 @@ public class ResultSearchUsersAdapter extends RecyclerView.Adapter<ResultSearchU
 
         Glide.with(context).load(item.getUrl()).into(holder.imgUser);
 
-        holder.linearLayoutUser.setOnLongClickListener(new View.OnLongClickListener() {
+        holder.linearLayoutUser.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onLongClick(View v) {
-                Toast.makeText(context, "abrir opcoes", Toast.LENGTH_SHORT).show();
-                return false;
+            public void onClick(View v) {
+                openShowDataUserActivity();
             }
         });
 
@@ -82,5 +85,11 @@ public class ResultSearchUsersAdapter extends RecyclerView.Adapter<ResultSearchU
             linearLayoutUser = (LinearLayout) itemView.findViewById(R.id.linearLayoutUser);
 
         }
+    }
+
+    private void openShowDataUserActivity() {
+        Intent intent = new Intent(context, ShowDataUserActivity.class);
+        intent.putExtra("user", item);
+        context.startActivity(intent);
     }
 }

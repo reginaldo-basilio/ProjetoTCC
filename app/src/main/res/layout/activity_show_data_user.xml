@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_margin="16dp"
+    tools:context=".Activity.ShowDataUserActivity">
+
+    <TextView
+        android:id="@+id/txtFantasyName"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_height="wrap_content"
+        android:text="Nome fantasia"
+        android:textColor="#006400"
+        android:textSize="20sp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/txtAddressNumber"
+        android:layout_width="match_parent"
+        android:gravity="left"
+        android:layout_marginTop="5dp"
+        android:layout_height="wrap_content"
+        android:text="Endereço - numero"
+        android:textColor="#006400"
+        android:textSize="18sp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/txtDistrict"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:text="Bairro: "
+            android:textColor="#006400"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/txtDistrictName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:gravity="left"
+            android:text="Nome do bairro"
+            android:textColor="#006400"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/txtContact"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:text="Telefone: "
+            android:textColor="#006400"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/txtContactNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:gravity="left"
+            android:text="Numero telefone"
+            android:textColor="#006400"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewDataUser"
+        android:scrollbars="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>
