@@ -58,6 +58,7 @@ public class UserResultAdapter extends RecyclerView.Adapter<UserResultAdapter.Vi
         Ads item = mUserAdsList.get(position);
 
         holder.txtTitleAdsUser.setText(item.getTitle());
+        holder.txtDescriptionAdsUser.setText(item.getDescription());
         Glide.with(context).load(item.getUrl()).into(holder.imgAdsUser);
 
     }
@@ -70,13 +71,14 @@ public class UserResultAdapter extends RecyclerView.Adapter<UserResultAdapter.Vi
     public static class ViewHolder extends RecyclerView.ViewHolder{
 
         protected ImageView imgAdsUser;
-        protected TextView txtTitleAdsUser;
+        protected TextView txtTitleAdsUser, txtDescriptionAdsUser;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
             imgAdsUser = (ImageView) itemView.findViewById(R.id.imgAdsUser);
             txtTitleAdsUser = (TextView) itemView.findViewById(R.id.txtTitleAdsUser);
+            txtDescriptionAdsUser = (TextView) itemView.findViewById(R.id.txtDescriptionAdsUser);
 
         }
     }

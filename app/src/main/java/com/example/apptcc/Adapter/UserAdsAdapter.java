@@ -79,6 +79,7 @@ public class UserAdsAdapter extends RecyclerView.Adapter<UserAdsAdapter.ViewHold
         item = mUserAdsList.get(position);
 
         holder.txtTitleAdsUser.setText(item.getTitle());
+        holder.txtDescriptionAdsUser.setText(item.getDescription());
         Glide.with(context).load(item.getUrl()).into(holder.imgAdsUser);
 
         holder.linearLayoutAdsUser.setOnLongClickListener(new View.OnLongClickListener() {
@@ -120,7 +121,7 @@ public class UserAdsAdapter extends RecyclerView.Adapter<UserAdsAdapter.ViewHold
     public static class ViewHolder extends RecyclerView.ViewHolder{
 
         protected ImageView imgAdsUser;
-        protected TextView txtTitleAdsUser;
+        protected TextView txtTitleAdsUser, txtDescriptionAdsUser;
         protected LinearLayout linearLayoutAdsUser;
 
         public ViewHolder(View itemView) {
@@ -128,6 +129,7 @@ public class UserAdsAdapter extends RecyclerView.Adapter<UserAdsAdapter.ViewHold
 
             imgAdsUser = (ImageView) itemView.findViewById(R.id.imgAdsUser);
             txtTitleAdsUser = (TextView) itemView.findViewById(R.id.txtTitleAdsUser);
+            txtDescriptionAdsUser = (TextView) itemView.findViewById(R.id.txtDescriptionAdsUser);
             linearLayoutAdsUser = (LinearLayout) itemView.findViewById(R.id.linearLayoutAdsUser);
 
         }
