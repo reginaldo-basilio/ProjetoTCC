@@ -81,6 +81,20 @@
 
     </LinearLayout>
 
+    <com.beardedhen.androidbootstrap.BootstrapButton
+        android:id="@+id/btnViewAssessments"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:text="Avaliações"
+        app:bootstrapBrand="success"
+        app:bootstrapSize="lg"
+        app:buttonMode="regular"
+        app:roundedCorners="true"
+        app:showOutline="true"
+        tools:ignore="MissingConstraints" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewDataUser"
         android:scrollbars="horizontal"

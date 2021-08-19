@@ -51,7 +51,7 @@ public class ResultSearchUsersAdapter extends RecyclerView.Adapter<ResultSearchU
         holder.txtfantasyName.setText(item.getFantasyName());
         holder.txtDistrict.setText(item.getDistrict());
         holder.txtContact.setText(item.getContact());
-
+        holder.txtAvg.setText(item.getAssessmentAvg());
         Glide.with(context).load(item.getUrl()).into(holder.imgUser);
 
         holder.linearLayoutUser.setOnClickListener(new View.OnClickListener() {

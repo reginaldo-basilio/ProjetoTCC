@@ -4,7 +4,7 @@ public class Assessment {
 
     private String date;
     private String comment;
-    private float assessmentValue;
+    private String assessmentValue;
     private String keyAssessment;
     private String uidAssessment;
 
@@ -12,7 +12,7 @@ public class Assessment {
 
     }
 
-    public Assessment(String date, String comment, int assessmentValue, String keyAssessment, String uidAssessment) {
+    public Assessment(String date, String comment, String assessmentValue, String keyAssessment, String uidAssessment) {
         this.date = date;
         this.comment = comment;
         this.assessmentValue = assessmentValue;
@@ -36,11 +36,11 @@ public class Assessment {
         this.comment = comment;
     }
 
-    public float getAssessmentValue() {
+    public String getAssessmentValue() {
         return assessmentValue;
     }
 
-    public void setAssessmentValue(int assessmentValue) {
+    public void setAssessmentValue(String assessmentValue) {
         this.assessmentValue = assessmentValue;
     }
 

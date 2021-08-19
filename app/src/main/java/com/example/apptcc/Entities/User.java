@@ -9,6 +9,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class User implements Parcelable {
+    private int assessmentCounter;
+    private String assessmentAvg;
+    private int assessmentValue;
     private int counter;
     private String fullName;
     private String email;
@@ -30,7 +33,8 @@ public class User implements Parcelable {
 
     }
 
-    public User(int counter, String fullName, String email, String contact, String fantasyName, String category, String state, String city, String district, String address, String number, String keyUser, String uid, String url) {
+    public User(String assessmentAvg, int counter, String fullName, String email, String contact, String fantasyName, String category, String state, String city, String district, String address, String number, String keyUser, String uid, String url) {
+        this.assessmentAvg = assessmentAvg;
         this.counter = counter;
         this.fullName = fullName;
         this.email = email;
@@ -66,6 +70,9 @@ public class User implements Parcelable {
     }
 
     protected User(Parcel in) {
+        assessmentCounter = in.readInt();
+        assessmentAvg = in.readString();
+        assessmentValue = in.readInt();
         counter = in.readInt();
         fullName = in.readString();
         email = in.readString();
@@ -94,6 +101,30 @@ public class User implements Parcelable {
             return new User[size];
         }
     };
+
+    public int getAssessmentCounter() {
+        return assessmentCounter;
+    }
+
+    public void setAssessmentCounter(int assessmentCounter) {
+        this.assessmentCounter = assessmentCounter;
+    }
+
+    public String getAssessmentAvg() {
+        return assessmentAvg;
+    }
+
+    public void setAssessmentAvg(String assessmentAvg) {
+        this.assessmentAvg = assessmentAvg;
+    }
+
+    public int getAssessmentValue() {
+        return assessmentValue;
+    }
+
+    public void setAssessmentValue(int assessmentValue) {
+        this.assessmentValue = assessmentValue;
+    }
 
     public int getCounter() {
         return counter;
@@ -219,6 +250,9 @@ public class User implements Parcelable {
     @Exclude
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
+        result.put("assessmentCounter", assessmentCounter);
+        result.put("assessmentAvg", assessmentAvg);
+        result.put("assessmentValue", assessmentValue);
         result.put("counter", counter);
         result.put("fullName", fullName);
         result.put("email", email);
@@ -246,6 +280,9 @@ public class User implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(assessmentCounter);
+        dest.writeString(assessmentAvg);
+        dest.writeInt(assessmentValue);
         dest.writeInt(counter);
         dest.writeString(fullName);
         dest.writeString(email);

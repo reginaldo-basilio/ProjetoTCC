@@ -160,6 +160,7 @@ public class RegisterActivity extends AppCompatActivity {
                             public void onSuccess(Uri uri) {
                                 String url = uri.toString();
                                 user = new User();
+                                user.setAssessmentAvg("0");
                                 user.setCounter(0);
                                 user.setFullName(edtName.getText().toString());
                                 user.setEmail(edtEmail.getText().toString());

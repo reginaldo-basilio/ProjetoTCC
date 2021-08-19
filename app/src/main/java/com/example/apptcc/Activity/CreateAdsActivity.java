@@ -168,10 +168,12 @@ public class CreateAdsActivity extends AppCompatActivity {
         ads.setUidAds(userAuth.getUid());
         ads.setUrl(url);
         ads.setImageName(imageName);
+
         myRef = database.getReference("ads");
         String key = myRef.child("ads").push().getKey();
         ads.setKeyAds(key);
         myRef.child(key).setValue(ads);
+
         openMyAdsActivity();
     }
 

@@ -5,7 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.beardedhen.androidbootstrap.BootstrapButton;
@@ -35,7 +39,7 @@ public class ShowDataUserActivity extends AppCompatActivity {
     private UserResultAdapter mUserResultAdapter;
     private DatabaseReference databaseReference;
     private FirebaseUser userAuth;
-    private BootstrapButton btnInsertAds;
+    private BootstrapButton btnViewAssessments;
 
     private TextView mFantasyName, mAddressNumber, mDistrictCityState, mContact;
 
@@ -50,8 +54,17 @@ public class ShowDataUserActivity extends AppCompatActivity {
         mAddressNumber = (TextView) findViewById(R.id.txtAddressNumber);
         mDistrictCityState = (TextView) findViewById(R.id.txtDistrictName);
         mContact = (TextView) findViewById(R.id.txtContactNumber);
+        btnViewAssessments = (BootstrapButton) findViewById(R.id.btnViewAssessments);
 
         loadDataUser();
+
+        btnViewAssessments.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openCreateAssessment();
+            }
+        });
+
         String uid = userImport.getUid();
         mRecyclerViewAdsUser = findViewById(R.id.recyclerViewDataUser);
         mRecyclerViewAdsUser.setLayoutManager(new LinearLayoutManager(this));
@@ -88,4 +101,11 @@ public class ShowDataUserActivity extends AppCompatActivity {
         mDistrictCityState.setText(district);
         mContact.setText(userImport.getContact());
     }
+
+    private void openCreateAssessment(){
+        Intent intent = new Intent(ShowDataUserActivity.this, CreateAssessmentActivity.class);
+        intent.putExtra("user", userImport);
+        startActivity(intent);
+    }
+
 }

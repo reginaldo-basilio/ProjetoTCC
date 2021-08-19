@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_margin="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="5dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:text="Data: "
+            android:textColor="#006400"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/txtDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:gravity="left"
+            android:text="99/99/9999 "
+            android:textColor="#006400"
+            android:textSize="18sp" />
+
+        <ImageView
+            android:id="@+id/imgStarOn"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_marginLeft="15dp"
+            app:srcCompat="@android:drawable/btn_star_big_on" />
+
+        <TextView
+            android:id="@+id/txtAvg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Valor"
+            android:textColor="#006400"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/txtComment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:text="comentario "
+        android:textColor="#006400"
+        android:textSize="18sp" />
+
+</LinearLayout>
