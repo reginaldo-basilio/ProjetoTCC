@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.beardedhen.androidbootstrap.BootstrapEditText;
+import com.example.apptcc.Entities.LoadingDialog;
 import com.example.apptcc.Entities.User;
 import com.example.apptcc.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -52,6 +53,7 @@ public class RegisterActivity extends AppCompatActivity {
     private BootstrapEditText edtAddress, edtNumber, edtPassword, edtConfirmPassword;
     private BootstrapButton btnRegister, btnCancel;
     private List<String> stateList, cityList, categoryList;
+    private LoadingDialog loadingDialog;
 
     private User user;
     private FirebaseAuth mAuth;
@@ -71,6 +73,7 @@ public class RegisterActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
         storage = FirebaseStorage.getInstance();
+        loadingDialog = new LoadingDialog(RegisterActivity.this);
 
         imgFrontImage = (ImageView) findViewById(R.id.imgFrontImage);
         edtName = (BootstrapEditText) findViewById(R.id.edtName);
@@ -98,6 +101,7 @@ public class RegisterActivity extends AppCompatActivity {
         btnRegister.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                loadingDialog.startLoadingDialog();
                 if (edtPassword.getText().toString().equals(edtConfirmPassword.getText().toString())) {
                     createAccount();
                 } else {

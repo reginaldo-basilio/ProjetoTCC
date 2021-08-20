@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.beardedhen.androidbootstrap.BootstrapEditText;
 import com.example.apptcc.Entities.Ads;
+import com.example.apptcc.Entities.LoadingDialog;
 import com.example.apptcc.Entities.User;
 import com.example.apptcc.R;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -55,6 +56,7 @@ public class CreateAdsActivity extends AppCompatActivity {
     private FirebaseDatabase database;
     private Ads ads;
     private User user;
+    private LoadingDialog loadingDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +66,7 @@ public class CreateAdsActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
         storage = FirebaseStorage.getInstance();
+        loadingDialog = new LoadingDialog(CreateAdsActivity.this);
 
         imgAds = (ImageView) findViewById(R.id.imgAds);
         edtTitle = (BootstrapEditText) findViewById(R.id.edtTitle);
@@ -81,8 +84,7 @@ public class CreateAdsActivity extends AppCompatActivity {
         btnInsert.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
+                loadingDialog.startLoadingDialog();
                 if(edtTitle.getText().toString() == null || edtTitle.getText().toString().isEmpty() || edtDescription.getText().toString() == null || edtDescription.getText().toString().isEmpty()){
                     Toast.makeText(CreateAdsActivity.this, "Título e descrição devem ser preenchidos!", Toast.LENGTH_SHORT).show();
                 }else{
@@ -110,6 +112,7 @@ public class CreateAdsActivity extends AppCompatActivity {
                                                         if (user.getUid().equals(uid)) {
                                                             if(user.getCounter() < 2){
                                                                 createAds(url, user);
+                                                                //loadingDialog.startLoadingDialog();
                                                             }else{
                                                                 Toast.makeText(CreateAdsActivity.this, "Limite de anúncios atingido!", Toast.LENGTH_SHORT).show();
                                                             }
