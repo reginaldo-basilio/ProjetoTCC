@@ -2,6 +2,8 @@ package com.example.apptcc.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,7 +59,8 @@ public class ResultSearchUsersAdapter extends RecyclerView.Adapter<ResultSearchU
         holder.linearLayoutUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openShowDataUserActivity();
+                User user = mUserList.get(position);
+                openShowDataUserActivity(user);
             }
         });
 
@@ -84,12 +87,13 @@ public class ResultSearchUsersAdapter extends RecyclerView.Adapter<ResultSearchU
             txtAvg = (TextView) itemView.findViewById(R.id.txtAvg);
             linearLayoutUser = (LinearLayout) itemView.findViewById(R.id.linearLayoutUser);
 
+
         }
     }
 
-    private void openShowDataUserActivity() {
+    private void openShowDataUserActivity(User position) {
         Intent intent = new Intent(context, ShowDataUserActivity.class);
-        intent.putExtra("user", item);
+        intent.putExtra("user", position);
         context.startActivity(intent);
     }
 }

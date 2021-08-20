@@ -22,6 +22,7 @@ import android.widget.Toast;
 import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.beardedhen.androidbootstrap.BootstrapEditText;
 import com.example.apptcc.Entities.User;
+import com.example.apptcc.Helper.MaskEditText;
 import com.example.apptcc.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -75,6 +76,7 @@ public class ProfileActivity extends AppCompatActivity {
         edtName = (BootstrapEditText) findViewById(R.id.edtName);
         edtEmail = (BootstrapEditText) findViewById(R.id.edtEmail);
         edtContact = (BootstrapEditText) findViewById(R.id.edtContact);
+        edtContact.addTextChangedListener(MaskEditText.mask(edtContact, MaskEditText.FORMAT_CELULAR));
         edtFantasyName = (BootstrapEditText) findViewById(R.id.edtFantasyName);
         spCategory = (Spinner) findViewById(R.id.spCategory);
         spState = (Spinner) findViewById(R.id.spState);
